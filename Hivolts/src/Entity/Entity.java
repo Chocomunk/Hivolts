@@ -1,14 +1,14 @@
 package Entity;
 
-//import Tile.Tile;
+import Tile.Tile;
 
 public class Entity extends Tile{
-	private boolean Fencehertz;
-	movable = true;
-	public Entity(int x, int y, boolean alive){	
+	private boolean alive = true;
+	private boolean Fencehertz = false;
+	boolean movable = true;
+	public Entity(int x, int y){	
 		this.x = x;
 		this.y = y;
-		this.alive = alive;
 	}
 	public void Dead(){
 		alive = false;
