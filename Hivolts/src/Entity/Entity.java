@@ -7,8 +7,7 @@ public class Entity extends Tile{
 	private boolean Fencehertz = false;
 	boolean movable = true;
 	public Entity(int x, int y){	
-		this.x = x;
-		this.y = y;
+		super(x, y);
 	}
 	public void Dead(){
 		alive = false;
