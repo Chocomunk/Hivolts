@@ -10,8 +10,8 @@ public class GameWindow extends JFrame{
     private final Color bg = Color.BLACK;
  
     //Scale of program
-    int width = 768+17;
-    int height = 768+39;
+    int width = 768+137;
+    int height = 768+159;
      
     /**
      * Creates a FlagFrame with a FlagComponent
@@ -20,8 +20,8 @@ public class GameWindow extends JFrame{
         init();
         final GameBoard gb = new GameBoard();
         this.add(gb, BorderLayout.CENTER);
-        width = gb.getWidth()+32;
-        height = gb.getHeight()+76;
+        width = gb.getWidth()+137;
+        height = gb.getHeight()+159;
     }
  
     /**

@@ -1,14 +1,36 @@
 package Tile;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Tile {
-	public int x,y,width,height;
+	
+	private int x,y,width,height;
+	
 	public Tile(int x, int y, int width, int height){
 		this.width = width;
 		this.height = height;
 		this.x = x;
 		this.y = y;
-	}	
+	}
+
 	public Tile(int x,int y){
 		this(x,y,64,64);
 	}
+	
+	public void draw(Graphics g){
+		this.draw(g,Color.BLUE);
+	}
+	
+	public void draw(Graphics g, Color c){
+		g.setColor(c);
+		g.fillRect(x*74+5, y*74+5, width, height);
+	}
+	
+	public int getX() {return x;}
+	public int getY() {return y;}
+	public int getWidth() {return width;}
+	public int getHeight() {return height;}
+	public void changeX(float x) {this.x += x;}
+	public void changeY(float y) {this.y += y;}
 }
