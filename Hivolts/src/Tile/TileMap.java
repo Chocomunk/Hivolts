@@ -1,0 +1,173 @@
+package Tile;
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+import Entity.Mho;
+
+public class TileMap {
+
+	private Tile[][] grid;
+	private Mho[] mhos = new Mho[12];
+	private List<Tile> tickable = new ArrayList<Tile>();
+	
+	public TileMap(int type, int x, int y){
+//		if(type == 0){
+//			generateBackGround(x,y);
+//		}else if(type == 1){
+//			placeEnemies(x,y);
+//		}
+		generateFences(x,y);
+		generateMhos(x,y);
+	}
+	
+	public void generateFences(int x, int y){
+		grid = new Tile[x][y];
+		for(int i=0; i<grid.length; i++){
+			for(int j=0; j<grid[i].length; j++){
+//				Tile thisTile = null;
+//				if((i==9&&(j>=6&&j<=y+7))||(i==x+10&&(j>=6&&j<=y+7)) || (j==6&&(i>=9&&i<=x+10))||(j==x+7&&(i>=9&&i<=x+10))){
+//					thisTile = new Tile(i-10,j-7,TileType.Wall);
+//				}else{
+//					int randChoose = (int) Math.floor(Math.random()*10);
+//					int typeNum = 0;
+//					
+//					if(randChoose>=1){
+//						typeNum = TileType.Grass.ordinal();
+//					}else{
+//						typeNum = TileType.Dirt.ordinal();
+//					}
+//					thisTile = new Tile(i-10,j-7,TileType.values()[typeNum]);
+//				}
+//				grid[i][j] = thisTile;
+//				if(thisTile.isEnterable()){
+//					tickable.add(thisTile);
+//				}
+				if((i==0 || j==0)||(i==x-1 || j==y-1)){
+					grid[i][j] = new Fence(i,j);
+				}
+			}
+		}
+		
+		int fences_left = 20;
+		while(fences_left>0){
+			for(int i=1; i<grid.length-1; i++){
+				for(int j=1; j<grid[i].length-1; j++){
+					if(grid[i][j] == null && fences_left>0 && Math.random() < 0.3){
+						grid[i][j] = new Fence(i,j);
+						fences_left-=1;
+					}
+				}	
+			}
+		}
+		
+	}
+	
+	public void generateMhos(int x, int y){
+		
+		int mhos_left = mhos.length;
+		while(mhos_left>0){
+			for(int i=1; i<grid.length-1; i++){
+				for(int j=1; j<grid[i].length-1; j++){
+					if(grid[i][j] == null && mhos_left>0 && Math.random() < 0.05){
+						grid[i][j] = new Mho(i,j);
+						mhos_left-=1;
+					}
+				}	
+			}
+		}
+		
+//		grid = new Tile[x][y];
+//		for(int i=0; i<grid.length; i++){
+//			for(int j=0; j<grid[i].length; j++){
+//				int randChoose = (int) Math.floor(Math.random()*20);
+//				Tile thisTile;
+//				if(randChoose < 1 && ((i!=10)&(j!=7))){
+//					int randIndex = (int) Math.floor(Math.random()*100);
+//					
+//					if(randIndex<=25){
+//						//25% Get Bandit
+//						thisTile = new Enemy(EnemyType.Bandits, i, j);
+//					}else if(randIndex<=35){
+//						//10% Get DrBoom
+//						thisTile = new Enemy(EnemyType.DrBoom, i, j);
+//					}else if(randIndex<=55){
+//						//20% Get Alvin
+//						thisTile = new Enemy(EnemyType.Alvin, i, j);
+//					}else if(randIndex<=75){
+//						//20% Get Pepe
+//						thisTile = new Enemy(EnemyType.Pepe, i, j);
+//					}else if(randIndex<=90){
+//						//15% Get Link
+//						thisTile = new Enemy(EnemyType.Link, i, j);
+//					}else{
+//						//10% Get F.R.I.E.DLand
+//						thisTile = new Enemy(EnemyType.Friedland, i, j);
+//					}
+//					
+//				}else{
+//					thisTile = new Tile(i,j,TileType.EMPTY);
+//				}
+//				grid[i][j] = thisTile;
+//				if(thisTile.isEnterable()){
+//					tickable.add(thisTile);
+//				}
+//			}
+//		}
+	}
+	
+	public TileMap(Tile[][] map){
+		this.grid = map;
+	}
+	
+	public void Draw(Graphics g){
+//		for(int i=0; i<grid.length; i++){
+//			for(int j=0; j<grid[i].length; j++){
+//				if(grid[i][j].getType() != TileType.EMPTY){
+//					grid[i][j].Draw(g);
+//				}
+//			}
+//		}
+		
+		for(Tile[] i: grid){
+			for(Tile j: i){
+				if(j!=null){
+					j.draw(g);
+				}
+			}
+		}
+		
+	}
+	
+//	public boolean allExists(){
+//		boolean exists = false;
+//		for(Tile[] i: this.grid){
+//			for(Tile j: i){
+//				if(j.isActivated() && j.getType()!=TileType.EMPTY){
+//					exists = true;
+//				}
+//			}
+//		}
+//		return exists;
+//	}
+
+//	public void changePos(float x, float y) {
+//		for(Tile[] i: grid){
+//			for(Tile j: i){
+//				j.changeX(-x);
+//				j.changeY(-y);
+//			}
+//		}
+//	}
+	
+	public Tile getTile(int x, int y){return grid[x][y];}
+	public Tile[][] getGrid(){return grid;}
+	
+//	public void tick(int delta, GameContainer gc){
+//		for(Tile t: tickable){
+//			t.tick(delta, gc);
+//		}
+//	}
+	
+}
