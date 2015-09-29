@@ -2,6 +2,9 @@ package Entity;
 
 import Tile.Fence;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Mho extends Entity{
 	public Mho(int x, int y){
 		super(x, y);

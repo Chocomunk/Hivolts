@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entity.Mho;
+import Entity.Player;
 
 public class TileMap {
 
 	private Tile[][] grid;
 	private Mho[] mhos = new Mho[12];
 	
-	public TileMap(int type, int x, int y){
+	public TileMap(int x, int y){
 		initializeMap(x,y);
 	}
 	
@@ -95,6 +96,9 @@ public class TileMap {
 	public Tile getTile(int x, int y){return grid[x][y];}
 	public Tile[][] getGrid(){return grid;}
 	public Mho[] getMhos(){return mhos;}
+	public void setTile(int x, int y, Tile t){grid[x][y] = t;}
+	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
+	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
 	
 //	public void tick(int delta, GameContainer gc){
 //		for(Tile t: tickable){

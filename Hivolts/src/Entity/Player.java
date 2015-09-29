@@ -1,5 +1,8 @@
 package Entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class Player extends Entity{
 	public Player(int x, int y){	
 		super(x,y);
@@ -26,5 +29,11 @@ public class Player extends Entity{
 		
 	}
 	void nextTurn(){
-}
+		
+	}
+	
+	public void draw(Graphics g){
+		super.draw(g,Color.GREEN);
+	}
+
 }
