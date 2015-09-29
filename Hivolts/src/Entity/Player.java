@@ -7,6 +7,7 @@ public class Player extends Entity{
 	KeyboardInputController KIC;
 	public Player(int x, int y){	
 		super(x,y);
+		this.KIC = this.getMap().getBoard().getController();
 	}
 	public void Dead(){
 	}
