@@ -1,5 +1,7 @@
 package Entity;
 
+import Tile.Fence;
+
 public class Mho extends Entity{
 	public Mho(int x, int y){
 		super(x, y);
@@ -35,11 +37,11 @@ public class Mho extends Entity{
 			right = -1;
 		}
 		if(playerposy == y){
-			if(playerposy > x){
+			if(playerposx > x){
 				Mcoords [0] = moveX(1);
 				return;
 			}
-			if(playerposy < x){
+			else{
 				Mcoords [0] = moveX(-1);
 				return;
 			}
@@ -53,9 +55,16 @@ public class Mho extends Entity{
 			down = -1;
 		}
 		
-		//if(getTile(x + right,y + down) == instanceof fence){
-			
-		//}
+		if(getTile(x + right,y + down) instanceof Fence){
+			Mcoords [0] = moveX(right);
+			Mcoords [0] = moveY(down);
+
+		}
+		else{
+			if(Math.abs(playerposx-x)>Math.abs(playerposy-y)){
+				
+			}
+		}
 		
 	
 		
