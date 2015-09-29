@@ -19,8 +19,8 @@ public abstract class Entity extends Tile{
 		return showy + y;
 	}
 	public void moveDiagonal(int x, int y){
-		moveX(x);
-		moveY(y);
+		this.moveX(x);
+		this.moveY(y);
 	}
 	abstract void nextTurn();
 }
