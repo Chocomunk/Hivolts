@@ -58,7 +58,7 @@ public class Mho extends Entity{
 			down = -1;
 		}
 		
-		if(getTile(x + right,y + down) instanceof Fence){
+		if(this.getMap().getTile(x + right,y + down) instanceof Fence){
 			Mcoords [0] = moveX(right);
 			Mcoords [0] = moveY(down);
 

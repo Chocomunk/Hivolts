@@ -1,8 +1,11 @@
 package Entity;
 
 import Tile.Tile;
+import Tile.TileMap;
 
 public abstract class Entity extends Tile{
+	private TileMap map;
+	
 	public Entity(int x, int y){	
 		super(x,y);
 	}
@@ -22,6 +25,9 @@ public abstract class Entity extends Tile{
 		this.moveX(x);
 		this.moveY(y);
 	}
+	
+	public void setMap(TileMap map){this.map = map;}
+	public TileMap getMap(){return this.map;}
 	
 	abstract void nextTurn();
 }
