@@ -45,11 +45,11 @@ public class Mho extends Entity{
 			}
 		}
 		else if(playerposy - y > 0){
-			
+			//play is below the mho
 			down = 1;
 		}
 		else{
-			
+			//player is above the mho
 			down = -1;
 		}
 		
