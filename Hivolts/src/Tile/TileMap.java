@@ -52,7 +52,9 @@ public class TileMap {
 			int rand_x = (int) (Math.random()*grid.length);
 			int rand_y = (int) (Math.random()*grid[0].length);
 			if(grid[rand_x][rand_y] == null && mhos_left>0 && Math.random() < 0.05){
-				grid[rand_x][rand_y] = new Mho(rand_x,rand_y);
+				Mho thisHo = new Mho(rand_x,rand_y);
+				thisHo.setMap(this);
+				grid[rand_x][rand_y] = thisHo;
 				mhos_left-=1;
 			}
 		}	
@@ -102,6 +104,7 @@ public class TileMap {
 	public void setTile(int x, int y, Tile t){grid[x][y] = t;}
 	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
 	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
+	public void setBoard(GameBoard b){this.board = b;}
 	
 //	public void tick(int delta, GameContainer gc){
 //		for(Tile t: tickable){
