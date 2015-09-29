@@ -12,8 +12,8 @@ public class Mho extends Entity{
 	private void CalcMove(int x, int y) {
 		int playerposx = 0;
 		int playerposy = 0;
-		boolean right;
-		boolean down;
+		int right;
+		int down;
 		
 		//check for players position in respect to the mho
 		if(playerposx == x){
@@ -27,10 +27,12 @@ public class Mho extends Entity{
 			}
 		}
 		else if(playerposx-x > 0){
-			right = true;
+			// player is to the right of mho
+			right = 1;
 		}
 		else{
-			right = false;
+			//player is to the left of mho
+			right = -1;
 		}
 		if(playerposy == y){
 			if(playerposy > x){
@@ -43,13 +45,17 @@ public class Mho extends Entity{
 			}
 		}
 		else if(playerposy - y > 0){
-			down = true;
+			
+			down = 1;
 		}
 		else{
-			down = true;
+			
+			down = -1;
 		}
 		
-		//if(getTile(x + 1,y) = Tile instanceof fence)
+		//if(getTile(x + right,y + down) == instanceof fence){
+			
+		//}
 		
 	
 		
