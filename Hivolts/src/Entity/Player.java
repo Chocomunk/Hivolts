@@ -1,9 +1,7 @@
 package Entity;
 
-import Tile.Tile;
-
-public abstract class Entity extends Tile{
-	public Entity(int x, int y){	
+public class Player extends Entity{
+	public Player(int x, int y){	
 		super(x,y);
 	}
 	public void Dead(){
@@ -18,6 +16,11 @@ public abstract class Entity extends Tile{
 		moveX(x);
 		moveY(y);
 	}
-	abstract void nextTurn();
-	
+	public void jump(){
+		int x = (int)((Math.random()*10)+1);//1 to 10
+		int y = (int)((Math.random()*10)+1);
+		
+	}
+	void nextTurn(){
+	}
 }
