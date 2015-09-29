@@ -23,5 +23,4 @@ public abstract class Entity extends Tile{
 		moveY(y);
 	}
 	abstract void nextTurn();
-	
 }
