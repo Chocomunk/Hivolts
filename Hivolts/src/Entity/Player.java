@@ -2,8 +2,9 @@ package Entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
-
+import Input.KeyboardInputController;
 public class Player extends Entity{
+	KeyboardInputController KIC;
 	public Player(int x, int y){	
 		super(x,y);
 	}
