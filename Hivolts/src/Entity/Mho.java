@@ -13,7 +13,9 @@ public class Mho extends Entity{
 	void nextTurn(){
 		CalcMove(this.getX(), this.getY());
 	}
-	
+	void Die(){
+		
+	}
 	private void CalcMove(int x, int y) {
 		int playerposx = 0;
 		int playerposy = 0;
@@ -58,14 +60,22 @@ public class Mho extends Entity{
 			down = -1;
 		}
 		
-		if(this.getMap().getTile(x + right,y + down) instanceof Fence){
+		if(!(this.getMap().getTile(x + right,y + down) instanceof Fence)){
 			Mcoords [0] = moveX(right);
-			Mcoords [0] = moveY(down);
+			Mcoords [1] = moveY(down);
 
 		}
 		else{
-			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
-				Mcoords
+			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Fence)){
+				Mcoords [0] = moveX(right);
+			}
+			else{
+				if(!(this.getMap().getTile(x, y+down) instanceof Fence)){
+					Mcoords[1] = moveY(down);
+				}
+				else{
+					Die();
+				}
 			}
 		}
 		
@@ -77,6 +87,7 @@ public class Mho extends Entity{
 	}
 	
 int[] Mcoords = new int[2];
+
 }
 
 
