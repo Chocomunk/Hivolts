@@ -27,6 +27,7 @@ public class GameBoard extends JComponent{
      
     void init(){
     	map = new TileMap(12,12);
+    	map.setBoard(this);
     	boolean playerOnBoard = false;
     	while(!playerOnBoard){
     		int x = (int) (Math.random()*10)+1;
@@ -35,6 +36,7 @@ public class GameBoard extends JComponent{
         	if(!(map.getTile(x, y) instanceof Tile)){
 //        		System.out.println(x+","+y);
         		player = new Player(x,y);
+        		player.setMap(map);
         		map.placePlayer(x, y, player);
         		playerOnBoard = true;
         	}
