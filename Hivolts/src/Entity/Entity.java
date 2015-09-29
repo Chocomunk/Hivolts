@@ -18,6 +18,7 @@ public abstract class Entity extends Tile{
 		moveX(x);
 		moveY(y);
 	}
+	
 	abstract void nextTurn();
 	
 }

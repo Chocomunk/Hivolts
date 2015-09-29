@@ -4,6 +4,8 @@ import java.awt.*;
 
 import javax.swing.JFrame;
 
+import Input.KeyboardInputController;
+
 public class GameWindow extends JFrame{
 
     //Background
@@ -15,11 +17,13 @@ public class GameWindow extends JFrame{
      
     /**
      * Creates a FlagFrame with a FlagComponent
+     * @param kbic 
      */
-    public GameWindow () {
+    public GameWindow (KeyboardInputController kbic) {
         init();
-        final GameBoard gb = new GameBoard();
+        final GameBoard gb = new GameBoard(kbic);
         this.add(gb, BorderLayout.CENTER);
+        this.addKeyListener(kbic);
         width = gb.getWidth()+137;
         height = gb.getHeight()+159;
     }
@@ -33,6 +37,6 @@ public class GameWindow extends JFrame{
         setSize(width, height);
         setBackground(bg);
         repaint();
-    	System.out.println("Frame size: "+this.getWidth()+" | "+this.getHeight());
+//    	System.out.println("Frame size: "+this.getWidth()+" | "+this.getHeight());
     }
 }
