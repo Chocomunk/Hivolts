@@ -22,5 +22,6 @@ public abstract class Entity extends Tile{
 		this.moveX(x);
 		this.moveY(y);
 	}
+	
 	abstract void nextTurn();
 }
