@@ -9,11 +9,15 @@ public class Player extends Entity{
 	}
 	public void Dead(){
 	}
-	public void moveX(int x){
+	public int moveX(int x){
+		int showx = this.getX();
 		this.changeX(x);
+		return showx + x;
 	}
-	public void moveY(int y){
+	public int moveY(int y){
+		int showy = this.getY();
 		this.changeY(y);
+		return y + showy;
 	}
 	public void moveDiagonal(int x, int y){
 		moveX(x);
@@ -24,11 +28,12 @@ public class Player extends Entity{
 		int y = (int)((Math.random()*10)+1);
 		
 	}
-	
 	void nextTurn(){
+		
 	}
 	
 	public void draw(Graphics g){
 		super.draw(g,Color.GREEN);
 	}
+
 }
