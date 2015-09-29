@@ -6,8 +6,10 @@ import java.util.List;
 
 import Entity.Mho;
 import Entity.Player;
+import GUI.GameBoard;
 
 public class TileMap {
+	private GameBoard board;
 
 	private Tile[][] grid;
 	private Mho[] mhos = new Mho[12];
@@ -94,8 +96,9 @@ public class TileMap {
 //	}
 	
 	public Tile getTile(int x, int y){return grid[x][y];}
-	public Tile[][] getGrid(){return grid;}
-	public Mho[] getMhos(){return mhos;}
+	public Tile[][] getGrid(){return this.grid;}
+	public Mho[] getMhos(){return this.mhos;}
+	public GameBoard getBoard(){return this.board;}
 	public void setTile(int x, int y, Tile t){grid[x][y] = t;}
 	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
 	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
