@@ -64,9 +64,9 @@ public class Mho extends Entity{
 
 		}
 		else{
-			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
-				Mcoords
-			}
+//   if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
+//				Mcoords
+//			}
 		}
 		
 	
