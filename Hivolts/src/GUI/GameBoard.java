@@ -39,6 +39,7 @@ public class GameBoard extends JComponent{
         		player.setMap(map);
         		map.placePlayer(x, y, player);
         		playerOnBoard = true;
+        		player.init();
         	}
     	}
     }
@@ -58,8 +59,13 @@ public class GameBoard extends JComponent{
     	}
 //    	System.out.println("Expected Calculation: "+w+" | "+h);
 //    	System.out.println("Acctual Calculation: "+this.getWidth()+" | "+this.getHeight());
-    	
     	map.Draw(g);
+    }
+    
+    public void Update(){
+//		System.out.println("Update board ticked");
+    	player.tick();
+    	
     }
 
 	public KeyboardInputController getController() {return kbic;}

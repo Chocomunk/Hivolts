@@ -10,6 +10,7 @@ public class GameWindow extends JFrame{
 
     //Background
     private final Color bg = Color.BLACK;
+    final GameBoard gb;
  
     //Scale of program
     int width = 768+137;
@@ -21,7 +22,7 @@ public class GameWindow extends JFrame{
      */
     public GameWindow (KeyboardInputController kbic) {
         init();
-        final GameBoard gb = new GameBoard(kbic);
+        gb = new GameBoard(kbic);
         this.add(gb, BorderLayout.CENTER);
         this.addKeyListener(kbic);
         width = gb.getWidth()+137;
@@ -38,5 +39,10 @@ public class GameWindow extends JFrame{
         setBackground(bg);
         repaint();
 //    	System.out.println("Frame size: "+this.getWidth()+" | "+this.getHeight());
+    }
+    
+    public void Update(){
+//		System.out.println("Update window ticked");
+    	gb.Update();
     }
 }
