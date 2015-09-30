@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entity.Mho;
+import Entity.Player;
+import GUI.GameBoard;
 
 public class TileMap {
+	private GameBoard board;
 
 	private Tile[][] grid;
 	private Mho[] mhos = new Mho[12];
 	
-	public TileMap(int type, int x, int y){
+	public TileMap(int x, int y){
 		initializeMap(x,y);
 	}
 	
@@ -49,7 +52,9 @@ public class TileMap {
 			int rand_x = (int) (Math.random()*grid.length);
 			int rand_y = (int) (Math.random()*grid[0].length);
 			if(grid[rand_x][rand_y] == null && mhos_left>0 && Math.random() < 0.05){
-				grid[rand_x][rand_y] = new Mho(rand_x,rand_y);
+				Mho thisHo = new Mho(rand_x,rand_y);
+				thisHo.setMap(this);
+				grid[rand_x][rand_y] = thisHo;
 				mhos_left-=1;
 			}
 		}	
@@ -93,8 +98,13 @@ public class TileMap {
 //	}
 	
 	public Tile getTile(int x, int y){return grid[x][y];}
-	public Tile[][] getGrid(){return grid;}
-	public Mho[] getMhos(){return mhos;}
+	public Tile[][] getGrid(){return this.grid;}
+	public Mho[] getMhos(){return this.mhos;}
+	public GameBoard getBoard(){return this.board;}
+	public void setTile(int x, int y, Tile t){grid[x][y] = t;}
+	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
+	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
+	public void setBoard(GameBoard b){this.board = b;}
 	
 //	public void tick(int delta, GameContainer gc){
 //		for(Tile t: tickable){
