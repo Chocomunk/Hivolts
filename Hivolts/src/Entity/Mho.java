@@ -66,7 +66,6 @@ public class Mho extends Entity{
 
 		}
 		else{
-<<<<<<< HEAD
 			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Fence)){
 				Mcoords [0] = moveX(right);
 			}
@@ -78,11 +77,9 @@ public class Mho extends Entity{
 					Die();
 				}
 			}
-=======
 //   if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
 //				Mcoords
 //			}
->>>>>>> branch 'master' of https://github.com/Chocomunk/Hivolts.git
 		}
 		
 	
