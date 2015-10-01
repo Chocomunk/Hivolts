@@ -7,13 +7,13 @@ public class Updater implements Runnable{
 	}
 	
 	public void run() {
-		// TODO Auto-generated method stublong lastTime = System.nanoTime();
+		// TODO Auto-generated method
 		try{
 			while(true){
 				Hivolts.Update();
 				Thread.sleep(16);
 //				System.out.println("Updating");
 			}
-		}catch(Exception e){System.out.println("I aint Updating cause "+e);}
+		}catch(Exception e){System.out.println("I aint Updating cause");e.printStackTrace();}
 	}
 }
