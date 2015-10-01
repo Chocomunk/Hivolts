@@ -24,8 +24,8 @@ public abstract class Entity extends Tile{
 	}
 	
 	public void moveDiagonal(int x, int y){
-		this.moveX(x);
-		this.moveY(y);
+		this.setX(this.getX()+x);
+		this.setY(this.getY()+y);
 	}
 	
 	public void setMap(TileMap map){this.map = map;}

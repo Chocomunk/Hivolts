@@ -3,7 +3,8 @@ package Entity;
 import java.awt.Color;
 import java.awt.Graphics;
 import Input.KeyboardInputController;
-
+import Tile.Fence;
+import Tile.TileMap;
 public class Player extends Entity{
 	
 	KeyboardInputController KIC;
@@ -81,9 +82,21 @@ public class Player extends Entity{
 	}
 	
 	public void jump(){
-		int x = (int)((Math.random()*10)+1);//1 to 10
-		int y = (int)((Math.random()*10)+1);
+		boolean fencePossi = true;
+		while(fencePossi){
+			int x = (int)((Math.random()*11)+1);
+			int y = (int)((Math.random()*11)+1);
+			if(!(this.getMap().getTile(x,y) instanceof Fence) && !(this.getMap().getTile(x,y) instanceof Mho)){
+				fencePossi = false;
+				this.setX(x);
+				this.setY(y);
+			}
+		}
 	}
+	
+	
+		
+	
 	
 	public void Dead(){
 		

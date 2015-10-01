@@ -88,7 +88,13 @@ public class Mho extends Entity{
 					if(shouldhero = true){this.Die();}
 				}
 			}
-		}	
+		}
+		
+	
+		
+		
+		
+		
 	}
 }
 
