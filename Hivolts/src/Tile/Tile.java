@@ -31,6 +31,8 @@ public class Tile {
 	public int getY() {return y;}
 	public int getWidth() {return width;}
 	public int getHeight() {return height;} 
-	public void changeX(float x) {this.x += x;}
-	public void changeY(float y) {this.y += y;}
+	public void setX(int x) {this.x = x;}
+	public void setY(int y) {this.y = y;}
+	public void changeX(int x) {this.setX(this.x+x);}
+	public void changeY(int y) {this.setY(this.y+y);}
 }
