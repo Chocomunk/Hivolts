@@ -10,12 +10,17 @@ public class Mho extends Entity{
 		super(x, y);
 	}
 	
-	void nextTurn(){
-		CalcMove(this.getX(), this.getY());
+	public void nextTurn(){
+//		CalcMove(this.getX(), this.getY());
 	}
 	void Die(){
 		
 	}
+	/**
+	 * Edan this is causing so many errors omg, wtf is going on with this
+	 * @param x
+	 * @param y
+	 */
 	private void CalcMove(int x, int y) {
 		int playerposx = 0;
 		int playerposy = 0;

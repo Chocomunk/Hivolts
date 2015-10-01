@@ -9,7 +9,7 @@ public class KeyboardInputController extends KeyAdapter{
 	
 	movement currDirection = movement.SIT;
 	
-	public void keyPressed(KeyEvent e){
+	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 		
 		switch(key){
@@ -20,22 +20,22 @@ public class KeyboardInputController extends KeyAdapter{
 			this.currDirection = movement.DOWN;
 			break;
 		case KeyEvent.VK_A:
-			this.currDirection = movement.RIGHT;
-			break;
-		case KeyEvent.VK_D:
 			this.currDirection = movement.LEFT;
 			break;
-		case KeyEvent.VK_Q:
-			this.currDirection = movement.UP_RIGHT;
+		case KeyEvent.VK_D:
+			this.currDirection = movement.RIGHT;
 			break;
-		case KeyEvent.VK_E:
+		case KeyEvent.VK_Q:
 			this.currDirection = movement.UP_LEFT;
 			break;
+		case KeyEvent.VK_E:
+			this.currDirection = movement.UP_RIGHT;
+			break;
 		case KeyEvent.VK_Z:
-			this.currDirection = movement.DOWN_RIGHT;
+			this.currDirection = movement.DOWN_LEFT;
 			break;
 		case KeyEvent.VK_C:
-			this.currDirection = movement.DOWN_LEFT;
+			this.currDirection = movement.DOWN_RIGHT;
 			break;
 		case KeyEvent.VK_S:
 			this.currDirection = movement.SIT;
@@ -46,10 +46,9 @@ public class KeyboardInputController extends KeyAdapter{
 		}
 	}
 	
-	public void keyReleased(KeyEvent e){
-		this.currDirection = movement.NULL;
-	}
+	public void resetDir(){this.setDirection(movement.NULL);}
 	
+	public void setDirection(movement dir){this.currDirection = dir;}
 	public movement getDirection(){return this.currDirection;}
 	
 }

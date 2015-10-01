@@ -65,7 +65,11 @@ public class GameBoard extends JComponent{
     public void Update(){
 //		System.out.println("Update board ticked");
     	player.tick();
-    	
+    }
+    
+    public void passTurn(){
+		map.nextTurn();
+		this.getMap().getBoard().repaint();
     }
 
 	public KeyboardInputController getController() {return kbic;}

@@ -15,18 +15,20 @@ public abstract class Entity extends Tile{
 	
 	public int moveX(int x){
 		map.setTile(this.getX(), this.getY(), null);
-		int showx = this.getX();
 		this.changeX(x);
 		map.setTile(this.getX(), this.getY(), this);
-		return x + showx;
+		
+		return this.getX();
 	}
+	
 	public int moveY(int y){
 		map.setTile(this.getX(), this.getY(), null);
-		int showy = this.getY();
 		this.changeY(y);
 		map.setTile(this.getX(), this.getY(), this);
-		return showy + y;
+
+		return this.getY();
 	}
+	
 	public void moveDiagonal(int x, int y){
 		this.moveX(x);
 		this.moveY(y);
@@ -35,5 +37,5 @@ public abstract class Entity extends Tile{
 	public void setMap(TileMap map){this.map = map;}
 	public TileMap getMap(){return this.map;}
 	
-	abstract void nextTurn();
+	public abstract void nextTurn();
 }

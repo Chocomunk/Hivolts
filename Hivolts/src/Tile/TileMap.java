@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entity.Entity;
 import Entity.Mho;
 import Entity.Player;
 import GUI.GameBoard;
@@ -16,6 +17,11 @@ public class TileMap {
 	
 	public TileMap(int x, int y){
 		initializeMap(x,y);
+	}
+	
+	public TileMap(Tile[][] map){
+		this.grid = map;
+		initializeMap(map.length, map[0].length);
 	}
 	
 	void initializeMap(int x, int y){
@@ -60,9 +66,14 @@ public class TileMap {
 		}	
 	}
 	
-	public TileMap(Tile[][] map){
-		this.grid = map;
-		initializeMap(map.length, map[0].length);
+	public void nextTurn(){
+		for(Tile[] i: grid){
+			for(Tile j: i){
+				if(j instanceof Entity){
+					((Entity)j).nextTurn();
+				}
+			}
+		}
 	}
 	
 	public void Draw(Graphics g){
@@ -73,29 +84,7 @@ public class TileMap {
 				}
 			}
 		}
-		
 	}
-	
-//	public boolean allExists(){
-//		boolean exists = false;
-//		for(Tile[] i: this.grid){
-//			for(Tile j: i){
-//				if(j.isActivated() && j.getType()!=TileType.EMPTY){
-//					exists = true;
-//				}
-//			}
-//		}
-//		return exists;
-//	}
-
-//	public void changePos(float x, float y) {
-//		for(Tile[] i: grid){
-//			for(Tile j: i){
-//				j.changeX(-x);
-//				j.changeY(-y);
-//			}
-//		}
-//	}
 	
 	public Tile getTile(int x, int y){return grid[x][y];}
 	public Tile[][] getGrid(){return this.grid;}
@@ -105,11 +94,4 @@ public class TileMap {
 	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
 	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
 	public void setBoard(GameBoard b){this.board = b;}
-	
-//	public void tick(int delta, GameContainer gc){
-//		for(Tile t: tickable){
-//			t.tick(delta, gc);
-//		}
-//	}
-	
 }
