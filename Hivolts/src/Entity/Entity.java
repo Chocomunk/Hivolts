@@ -13,20 +13,13 @@ public abstract class Entity extends Tile{
 	public void Dead(){
 	}
 	
-	public int moveX(int x){
-		map.setTile(this.getX(), this.getY(), null);
+	public void moveX(int x){
 		this.changeX(x);
-		map.setTile(this.getX(), this.getY(), this);
-		
-		return this.getX();
 	}
 	
-	public int moveY(int y){
-		map.setTile(this.getX(), this.getY(), null);
+	public void moveY(int y){
 		this.changeY(y);
-		map.setTile(this.getX(), this.getY(), this);
-
-		return this.getY();
+		
 	}
 	
 	public void moveDiagonal(int x, int y){
