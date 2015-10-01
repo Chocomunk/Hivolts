@@ -1,6 +1,7 @@
 package Entity;
 
 import Tile.Fence;
+import Tile.Tile;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -11,31 +12,33 @@ public class Mho extends Entity{
 	}
 	
 	public void nextTurn(){
-//		CalcMove(this.getX(), this.getY());
+		CalcMove(this.getX(), this.getY());
 	}
-	void Die(){
-		
-	}
+	
 	/**
 	 * Edan this is causing so many errors omg, wtf is going on with this
 	 * @param x
 	 * @param y
 	 */
-	private void CalcMove(int x, int y) {
-		int playerposx = 0;
-		int playerposy = 0;
-		int right;
-		int down;
+	private void CalcMove(int x, int y){
+		
+		int playerposx = this.getMap().getPlayer().getX();
+		int playerposy = this.getMap().getPlayer().getY();;
+		int right = 0;
+		int down = 0;
+		boolean shouldhero = false;
+		
 		
 		//check for players position in respect to the mho
 		if(playerposx == x){
 			if(playerposy > y){
-				Mcoords [1] = moveY(1);
+				this.moveY(1);
 				return;
 			}
 			else{
-				Mcoords [1] = moveY(-1);
+				this.moveY(-1);
 				return;
+				
 			}
 		}
 		else if(playerposx-x > 0){
@@ -48,11 +51,11 @@ public class Mho extends Entity{
 		}
 		if(playerposy == y){
 			if(playerposx > x){
-				Mcoords [0] = moveX(1);
+				this.moveX(1);
 				return;
 			}
 			else{
-				Mcoords [0] = moveX(-1);
+				this.moveX(-1);
 				return;
 			}
 		}
@@ -65,26 +68,29 @@ public class Mho extends Entity{
 			down = -1;
 		}
 		
-		if(!(this.getMap().getTile(x + right,y + down) instanceof Fence)){
-			Mcoords [0] = moveX(right);
-			Mcoords [1] = moveY(down);
+		if(!(this.getMap().getTile(x + right,y + down) instanceof Tile)){
+			this.moveX(right);
+			this.moveY(down);
+			return;
 
 		}
 		else{
-			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Fence)){
-				Mcoords [0] = moveX(right);
+			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Tile)){
+				this.moveX(right);
+				return;
 			}
 			else{
-				if(!(this.getMap().getTile(x, y+down) instanceof Fence)){
-					Mcoords[1] = moveY(down);
+				if(!(this.getMap().getTile(x, y+down) instanceof Tile)){
+					this.moveY(down);
+					return;
 				}
 				else{
-					Die();
+					if(this.getMap().getTile(x, y+down) instanceof Fence){shouldhero=true;}
+					if(this.getMap().getTile(x+right, y) instanceof Fence){shouldhero=true;}
+					if(this.getMap().getTile(x+right, y+down) instanceof Fence){shouldhero=true;}
+					if(shouldhero = true){Dead();}
 				}
 			}
-//   if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
-//				Mcoords
-//			}
 		}
 		
 	
