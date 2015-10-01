@@ -1,6 +1,7 @@
 package Entity;
 
 import Tile.Fence;
+import Tile.Tile;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,9 +14,7 @@ public class Mho extends Entity{
 	public void nextTurn(){
 		CalcMove(this.getX(), this.getY());
 	}
-	void Die(){
-		
-	}
+	
 	/**
 	 * Edan this is causing so many errors omg, wtf is going on with this
 	 * @param x
@@ -27,6 +26,7 @@ public class Mho extends Entity{
 		int playerposy = this.getMap().getPlayer().getY();;
 		int right = 0;
 		int down = 0;
+		boolean shouldhero = false;
 		
 		
 		//check for players position in respect to the mho
@@ -68,24 +68,27 @@ public class Mho extends Entity{
 			down = -1;
 		}
 		
-		if(!(this.getMap().getTile(x + right,y + down) instanceof Fence)){
+		if(!(this.getMap().getTile(x + right,y + down) instanceof Tile)){
 			this.moveX(right);
 			this.moveY(down);
 			return;
 
 		}
 		else{
-			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Fence)){
+			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Tile)){
 				this.moveX(right);
 				return;
 			}
 			else{
-				if(!(this.getMap().getTile(x, y+down) instanceof Fence)){
+				if(!(this.getMap().getTile(x, y+down) instanceof Tile)){
 					this.moveY(down);
 					return;
 				}
 				else{
-					Die();
+					if(this.getMap().getTile(x, y+down) instanceof Fence){shouldhero=true;}
+					if(this.getMap().getTile(x+right, y) instanceof Fence){shouldhero=true;}
+					if(this.getMap().getTile(x+right, y+down) instanceof Fence){shouldhero=true;}
+					if(shouldhero = true){Dead();}
 				}
 			}
 //   if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){

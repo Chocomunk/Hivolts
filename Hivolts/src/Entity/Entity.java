@@ -11,6 +11,7 @@ public abstract class Entity extends Tile{
 	}
 	
 	public void Dead(){
+		
 	}
 	
 	public void moveX(int x){
