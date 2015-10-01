@@ -11,6 +11,7 @@ import GUI.GameBoard;
 
 public class TileMap {
 	private GameBoard board;
+	private Player player;
 
 	private Tile[][] grid;
 	private Mho[] mhos = new Mho[12];
@@ -90,8 +91,12 @@ public class TileMap {
 	public Tile[][] getGrid(){return this.grid;}
 	public Mho[] getMhos(){return this.mhos;}
 	public GameBoard getBoard(){return this.board;}
+	public Player getPlayer(){return this.player;}
+	
 	public void setTile(int x, int y, Tile t){grid[x][y] = t;}
 	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
 	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
+	public void placePlayer(int x, int y){grid[x][y] = this.player;}
+	public void setPlayer(Player p){this.player = p;}
 	public void setBoard(GameBoard b){this.board = b;}
 }

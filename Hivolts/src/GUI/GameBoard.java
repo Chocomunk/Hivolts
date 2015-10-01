@@ -37,7 +37,8 @@ public class GameBoard extends JComponent{
 //        		System.out.println(x+","+y);
         		player = new Player(x,y);
         		player.setMap(map);
-        		map.placePlayer(x, y, player);
+        		map.setPlayer(player);
+        		map.placePlayer(x, y);
         		playerOnBoard = true;
         		player.init();
         	}
