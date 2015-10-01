@@ -9,9 +9,9 @@ public abstract class Entity extends Tile{
 	public Entity(int x, int y){	
 		super(x,y);
 	}
-	
-	public void Dead(){
-		
+
+	public  void Die(){
+		this.getMap().delTile(this.getX(), this.getY());
 	}
 	
 	public void moveX(int x){

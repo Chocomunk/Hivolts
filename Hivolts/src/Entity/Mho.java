@@ -3,9 +3,6 @@ package Entity;
 import Tile.Fence;
 import Tile.Tile;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 public class Mho extends Entity{
 	public Mho(int x, int y){
 		super(x, y);
@@ -88,23 +85,11 @@ public class Mho extends Entity{
 					if(this.getMap().getTile(x, y+down) instanceof Fence){shouldhero=true;}
 					if(this.getMap().getTile(x+right, y) instanceof Fence){shouldhero=true;}
 					if(this.getMap().getTile(x+right, y+down) instanceof Fence){shouldhero=true;}
-					if(shouldhero = true){Dead();}
+					if(shouldhero = true){this.Die();}
 				}
 			}
-//   if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
-//				Mcoords
-//			}
-		}
-		
-	
-		
-		
-		
-		
+		}	
 	}
-	
-int[] Mcoords = new int[2];
-
 }
 
 
