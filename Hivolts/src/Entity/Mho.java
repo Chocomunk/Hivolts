@@ -23,7 +23,7 @@ public class Mho extends Entity{
 	private void CalcMove(int x, int y){
 		
 		int playerposx = this.getMap().getPlayer().getX();
-		int playerposy = this.getMap().getPlayer().getY();;
+		int playerposy = this.getMap().getPlayer().getY();
 		int right = 0;
 		int down = 0;
 		boolean shouldhero = false;
@@ -71,24 +71,17 @@ public class Mho extends Entity{
 		if(!(this.getMap().getTile(x + right,y + down) instanceof Tile)){
 			this.moveX(right);
 			this.moveY(down);
-			return;
-
 		}
 		else{
 			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Tile)){
 				this.moveX(right);
-				return;
 			}
 			else{
 				if(!(this.getMap().getTile(x, y+down) instanceof Tile)){
 					this.moveY(down);
-					return;
 				}
 				else{
-					if(this.getMap().getTile(x, y+down) instanceof Fence){shouldhero=true;}
-					if(this.getMap().getTile(x+right, y) instanceof Fence){shouldhero=true;}
-					if(this.getMap().getTile(x+right, y+down) instanceof Fence){shouldhero=true;}
-					if(shouldhero = true){Dead();}
+					
 				}
 			}
 		}
@@ -99,8 +92,6 @@ public class Mho extends Entity{
 		
 		
 	}
-	
-int[] Mcoords = new int[2];
 
 }
 

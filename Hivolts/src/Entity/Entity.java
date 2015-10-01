@@ -1,5 +1,6 @@
 package Entity;
 
+import Tile.Fence;
 import Tile.Tile;
 import Tile.TileMap;
 
@@ -32,4 +33,12 @@ public abstract class Entity extends Tile{
 	public TileMap getMap(){return this.map;}
 	
 	public abstract void nextTurn();
+	
+	public void fencecheck(){
+		boolean shouldhero = false;
+		if(this.getMap().getTile(this.getX(), this.getY()+down) instanceof Fence){shouldhero=true;}
+		if(this.getMap().getTile(x+right, y) instanceof Fence){shouldhero=true;}
+		if(this.getMap().getTile(x+right, y+down) instanceof Fence){shouldhero=true;}
+		if(shouldhero = true){Dead();}
+	}
 }
