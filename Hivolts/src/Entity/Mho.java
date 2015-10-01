@@ -91,9 +91,6 @@ public class Mho extends Entity{
 					if(shouldhero = true){Dead();}
 				}
 			}
-//   if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
-//				Mcoords
-//			}
 		}
 		
 	
