@@ -64,10 +64,11 @@ public class TileMap {
 			int rand_x = (int) (Math.random()*grid.length);
 			int rand_y = (int) (Math.random()*grid[0].length);
 			if(grid[rand_x][rand_y] == null && mhos_left>0 && Math.random() < 0.05){
+				mhos_left-=1;
 				Mho thisHo = new Mho(rand_x,rand_y);
 				thisHo.setMap(this);
 				grid[rand_x][rand_y] = thisHo;
-				mhos_left-=1;
+				thisHo.setIndex(mhos_left);
 				mhos[mhos_left] = thisHo;
 			}
 		}	
@@ -85,9 +86,20 @@ public class TileMap {
 	
 	public void Draw(Graphics g){
 		for(Fence f: fences){f.draw(g);}
-		for(Mho m: mhos){m.draw(g);}
+		for(int i=0; i<mhos.length; i++){
+			if(mhos[i]!=null){mhos[i].draw(g);}
+		}
 		player.draw(g);
 	}
+	
+	public void tick(){
+		boolean mhos_exist = false;
+		for(Mho m: mhos){if(m!=null){mhos_exist=true;}}
+		if(!mhos_exist){this.board.Win();}
+		else{player.tick();}
+	}
+	
+	public void Lose(){this.board.Lose();}
 	
 	public Tile getTile(int x, int y){return grid[x][y];}
 	public Tile[][] getGrid(){return this.grid;}
@@ -98,6 +110,8 @@ public class TileMap {
 	public void setTile(int x, int y, Tile t){grid[x][y] = t;}
 	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
 	public void delTile(int x, int y){grid[x][y] = null;}
+	public void delPlayer(){this.player = null;}
+	public void delMho(int index){mhos[index] = null;}
 	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
 	public void placePlayer(int x, int y){grid[x][y] = this.player;}
 	public void setPlayer(Player p){this.player = p;}

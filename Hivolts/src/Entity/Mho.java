@@ -1,98 +1,62 @@
 package Entity;
 
 import Tile.Fence;
-import Tile.Tile;
-
-import java.awt.Color;
-import java.awt.Graphics;
 
 public class Mho extends Entity{
+	private int index;
+	
 	public Mho(int x, int y){
 		super(x, y);
 	}
 	
 	public void nextTurn(){
-		CalcMove(this.getX(), this.getY());
+		CalcMove();
 	}
 	
-	/**
-	 * Edan this is causing so many errors omg, wtf is going on with this
-	 * @param x
-	 * @param y
-	 */
-	private void CalcMove(int x, int y){
-		
-		int playerposx = this.getMap().getPlayer().getX();
-		int playerposy = this.getMap().getPlayer().getY();
-		int right = 0;
-		int down = 0;
-		boolean shouldhero = false;
-		
-		
-		//check for players position in respect to the mho
-		if(playerposx == x){
-			if(playerposy > y){
-				this.moveY(1);
-				return;
-			}
-			else{
-				this.moveY(-1);
-				return;
-				
-			}
+	private void CalcMove(){
+		if(this.getMap().getPlayer()!=null){
+			int px = this.getMap().getPlayer().getX();
+			int py = this.getMap().getPlayer().getY();
+			
+			int horiz = -1*normalize(this.getX()-px);
+			int vert = -1*normalize(this.getY()-py);
+			
+			int posX = this.getX()+horiz;
+			int posY = this.getY()+vert;
+			
+			boolean hasFenceX = this.getMap().getGrid()[posX][this.getY()] instanceof Fence;
+			boolean hasFenceY = this.getMap().getGrid()[this.getX()][posY] instanceof Fence;
+			boolean hasFenceDiagonal = this.getMap().getGrid()[posX][posY] instanceof Fence;
+			
+			boolean hasMhoX = this.getMap().getGrid()[posX][this.getY()] instanceof Mho;
+			boolean hasMhoY = this.getMap().getGrid()[this.getX()][posY] instanceof Mho;
+			boolean hasMhoDiagonal = this.getMap().getGrid()[posX][posY] instanceof Mho;
+			
+			if(vert==0){moveX(horiz);}
+			else if(horiz==0){moveY(vert);}
+			else if(!hasFenceDiagonal){moveDiagonal(horiz,vert);}
+			else if(vert>horiz && !hasFenceY){moveY(vert);}
+			else if(horiz>vert && !hasFenceX){moveX(horiz);}
+			else if(!hasMhoDiagonal){moveDiagonal(horiz,vert);}
+			else if(vert>horiz && !hasMhoY){moveY(vert);}
+			else if(horiz>vert && !hasMhoX){moveX(horiz);}
+			
+			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die();}
 		}
-		else if(playerposx-x > 0){
-			// player is to the right of mho
-			right = 1;
-		}
-		else{
-			//player is to the left of mho
-			right = -1;
-		}
-		if(playerposy == y){
-			if(playerposx > x){
-				this.moveX(1);
-				return;
-			}
-			else{
-				this.moveX(-1);
-				return;
-			}
-		}
-		else if(playerposy - y > 0){
-			//play is below the mho
-			down = 1;
-		}
-		else{
-			//player is above the mho
-			down = -1;
-		}
-		
-		if(!(this.getMap().getTile(x + right,y + down) instanceof Tile)){
-			this.moveX(right);
-			this.moveY(down);
-		}
-		else{
-			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Tile)){
-				this.moveX(right);
-			}
-			else{
-				if(!(this.getMap().getTile(x, y+down) instanceof Tile)){
-					this.moveY(down);
-				}
-				else{
-					
-				}
-			}
-		}
-		
-	
-		
-		
-		
-		
 	}
 
+	private int normalize(int x){
+		if(x==0){return x;}
+		else{return x/Math.abs(x);}
+	}
+	
+	public void die(){
+		super.die();
+		this.getMap().delMho(this.index);
+	}
+	
+	public void setIndex(int index){this.index = index;}
+	public int getIndex(){return this.index;}
 }
 
 

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import Input.KeyboardInputController;
 import Tile.Fence;
-import Tile.TileMap;
+
 public class Player extends Entity{
 	
 	KeyboardInputController KIC;
@@ -21,6 +21,43 @@ public class Player extends Entity{
 	
 	void updateDIR(){
 		direction = KIC.getDirection();
+	}
+	
+	void resetDir(){
+//		System.out.println("dir resetting");
+		this.direction = KeyboardInputController.movement.NULL;
+		KIC.resetDir();
+	}
+	
+	public void jump(){
+		boolean fencePossible = true;
+		while(fencePossible){
+			int x = (int)((Math.random()*11)+1);
+			int y = (int)((Math.random()*11)+1);
+			if(!(this.getMap().getTile(x,y) instanceof Fence) && !(this.getMap().getTile(x,y) instanceof Mho)){
+				fencePossible = false;
+				this.setX(x);
+				this.setY(y);
+			}
+		}
+	}
+	
+	public void die(){
+		super.die();
+		this.getMap().delPlayer();
+		this.getMap().Lose();
+	}
+	
+	void passTurn(){
+		this.getMap().getBoard().passTurn();
+	}
+	
+	public void nextTurn(){
+		resetDir();
+	}
+	
+	public void draw(Graphics g){
+		super.draw(g,Color.GREEN);
 	}
 	
 	public void tick(){
@@ -73,45 +110,6 @@ public class Player extends Entity{
 			}
 			passTurn();
 		}
-	}
-	
-	void resetDir(){
-//		System.out.println("dir resetting");
-		this.direction = KeyboardInputController.movement.NULL;
-		KIC.resetDir();
-	}
-	
-	public void jump(){
-		boolean fencePossi = true;
-		while(fencePossi){
-			int x = (int)((Math.random()*11)+1);
-			int y = (int)((Math.random()*11)+1);
-			if(!(this.getMap().getTile(x,y) instanceof Fence) && !(this.getMap().getTile(x,y) instanceof Mho)){
-				fencePossi = false;
-				this.setX(x);
-				this.setY(y);
-			}
-		}
-	}
-	
-	
-		
-	
-	
-	public void Dead(){
-		
-	}
-	
-	void passTurn(){
-		this.getMap().getBoard().passTurn();
-	}
-	
-	public void nextTurn(){
-		resetDir();
-	}
-	
-	public void draw(Graphics g){
-		super.draw(g,Color.GREEN);
 	}
 
 }

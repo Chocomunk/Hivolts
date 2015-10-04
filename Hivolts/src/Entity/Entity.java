@@ -2,43 +2,38 @@ package Entity;
 
 import Tile.Fence;
 import Tile.Tile;
-import Tile.TileMap;
 
 public abstract class Entity extends Tile{
-	private TileMap map;
 	
 	public Entity(int x, int y){	
 		super(x,y);
 	}
 
-	public  void Die(){
+	public void die(){
 		this.getMap().delTile(this.getX(), this.getY());
 	}
 	
 	public void moveX(int x){
-		this.changeX(x);
+		if(this.checkDeath(x,0)){this.changeX(x);}
 	}
 	
 	public void moveY(int y){
-		this.changeY(y);
-		
+		if(this.checkDeath(0,y)){this.changeY(y);}
 	}
 	
 	public void moveDiagonal(int x, int y){
-		this.setX(this.getX()+x);
-		this.setY(this.getY()+y);
+		if(this.checkDeath(x,y)){
+			this.changeX(x);
+			this.changeY(y);
+		}
 	}
 	
-	public void setMap(TileMap map){this.map = map;}
-	public TileMap getMap(){return this.map;}
+	public boolean checkDeath(int x, int y){
+		if(this.getMap().getGrid()[this.getX()+x][this.getY()+y] instanceof Fence){
+			this.die();
+			return false;
+		}else{return true;}
+	}
 	
 	public abstract void nextTurn();
-	
-	public void fencecheck(){
-		boolean shouldhero = false;
-		if(this.getMap().getTile(this.getX(), this.getY()+down) instanceof Fence){shouldhero=true;}
-		if(this.getMap().getTile(x+right, y) instanceof Fence){shouldhero=true;}
-		if(this.getMap().getTile(x+right, y+down) instanceof Fence){shouldhero=true;}
-		if(shouldhero = true){Dead();}
-	}
 }
