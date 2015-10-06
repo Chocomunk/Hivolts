@@ -28,6 +28,8 @@ public class Tile {
 		g.fillRect(x*74+5, y*74+5, width, height);
 	}
 	
+	public void updateScreen(){this.getMap().getBoard().repaint();}
+	
 	public void changeX(int x) {this.setX(this.x+x);}
 	public void changeY(int y) {this.setY(this.y+y);}
 	

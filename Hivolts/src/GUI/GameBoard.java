@@ -70,10 +70,12 @@ public class GameBoard extends JComponent{
     		/**
     		 * WIN STATE HERE
     		 */
+    		System.out.println("We won!");
     	case LOSE:
     		/**
     		 * LOSE STATE HERE
     		 */
+    		System.out.println("We Lost!");
     	}
     }
     

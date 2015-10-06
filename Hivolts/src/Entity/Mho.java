@@ -1,5 +1,10 @@
 package Entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JOptionPane;
+
 import Tile.Fence;
 
 public class Mho extends Entity{
@@ -32,16 +37,16 @@ public class Mho extends Entity{
 			boolean hasMhoY = this.getMap().getGrid()[this.getX()][posY] instanceof Mho;
 			boolean hasMhoDiagonal = this.getMap().getGrid()[posX][posY] instanceof Mho;
 			
-			if(vert==0){moveX(horiz);}
-			else if(horiz==0){moveY(vert);}
-			else if(!hasFenceDiagonal){moveDiagonal(horiz,vert);}
-			else if(vert>horiz && !hasFenceY){moveY(vert);}
-			else if(horiz>vert && !hasFenceX){moveX(horiz);}
+			if(vert==0 && !hasMhoX){moveX(horiz);}
+			else if(horiz==0 && !hasMhoY){moveY(vert);}
+			else if(!hasFenceDiagonal && !hasMhoDiagonal){moveDiagonal(horiz,vert);}
+			else if(vert>horiz && !hasFenceY && !hasMhoY){moveY(vert);}
+			else if(horiz>vert && !hasFenceX && !hasMhoX){moveX(horiz);}
 			else if(!hasMhoDiagonal){moveDiagonal(horiz,vert);}
 			else if(vert>horiz && !hasMhoY){moveY(vert);}
 			else if(horiz>vert && !hasMhoX){moveX(horiz);}
 			
-			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die();}
+			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die(); JOptionPane.showMessageDialog(null, "You Died to mho: "+this.getIndex());}
 		}
 	}
 
@@ -53,6 +58,12 @@ public class Mho extends Entity{
 	public void die(){
 		super.die();
 		this.getMap().delMho(this.index);
+	}
+	
+	public void draw(Graphics g){
+		super.draw(g);
+		g.setColor(Color.WHITE);
+		g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
 	}
 	
 	public void setIndex(int index){this.index = index;}

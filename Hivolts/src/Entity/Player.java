@@ -34,18 +34,22 @@ public class Player extends Entity{
 		while(fencePossible){
 			int x = (int)((Math.random()*11)+1);
 			int y = (int)((Math.random()*11)+1);
-			if(!(this.getMap().getTile(x,y) instanceof Fence) && !(this.getMap().getTile(x,y) instanceof Mho)){
+			if(!(this.getMap().getTile(x,y) instanceof Fence)){
 				fencePossible = false;
 				this.setX(x);
 				this.setY(y);
 			}
 		}
+		if(this.getMap().getGrid()[this.getX()][this.getY()] instanceof Mho){this.die();}
+		this.resetDir();
+		this.updateScreen();
 	}
 	
 	public void die(){
 		super.die();
 		this.getMap().delPlayer();
 		this.getMap().Lose();
+		this.updateScreen();
 	}
 	
 	void passTurn(){
@@ -71,44 +75,45 @@ public class Player extends Entity{
 		boolean left = this.getX()>0;
 		
 		if(this.direction != KeyboardInputController.movement.NULL){
-			switch(this.direction){
-			case UP:
-				if(up)
-					moveY(-1);
-				break;
-			case DOWN:
-				if(down)
-					moveY(1);
-				break;
-			case RIGHT:
-				if(right)
-					moveX(1);
-				break;
-			case LEFT:
-				if(left)
-					moveX(-1);
-				break;
-			case UP_RIGHT:
-				if(up&&right)
-					moveDiagonal(1,-1);
-				break;
-			case UP_LEFT:
-				if(up&&left)
-					moveDiagonal(-1,-1);
-				break;
-			case DOWN_RIGHT:
-				if(down&&right)
-					moveDiagonal(1,1);
-				break;
-			case DOWN_LEFT:
-				if(down&&left)
-					moveDiagonal(-1,1);
-				break;
-			case JUMP:
-					jump();
-				break;
+			if(this.direction !=KeyboardInputController.movement.JUMP){
+				switch(this.direction){
+				case UP:
+					if(up)
+						moveY(-1);
+					break;
+				case DOWN:
+					if(down)
+						moveY(1);
+					break;
+				case RIGHT:
+					if(right)
+						moveX(1);
+					break;
+				case LEFT:
+					if(left)
+						moveX(-1);
+					break;
+				case UP_RIGHT:
+					if(up&&right)
+						moveDiagonal(1,-1);
+					break;
+				case UP_LEFT:
+					if(up&&left)
+						moveDiagonal(-1,-1);
+					break;
+				case DOWN_RIGHT:
+					if(down&&right)
+						moveDiagonal(1,1);
+					break;
+				case DOWN_LEFT:
+					if(down&&left)
+						moveDiagonal(-1,1);
+					break;
+				}
+				passTurn();
+			}else{
+				jump();
 			}
-			passTurn();
 		}
 	}
 

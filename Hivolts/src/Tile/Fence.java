@@ -12,5 +12,7 @@ public class Fence extends Tile{
 	
 	public void draw(Graphics g){
 		super.draw(g, Color.ORANGE);
+		g.setColor(Color.WHITE);
+		g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
 	}
 }
