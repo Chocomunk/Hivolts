@@ -19,7 +19,7 @@ public class Mho extends Entity{
 	}
 	
 	private void CalcMove(){
-		if(this.getMap().getPlayer()!=null){
+		if(this.isValid()&&this.getMap().getPlayer().isValid()){
 			int px = this.getMap().getPlayer().getX();
 			int py = this.getMap().getPlayer().getY();
 			
@@ -33,9 +33,9 @@ public class Mho extends Entity{
 			boolean hasFenceY = this.getMap().getGrid()[this.getX()][posY] instanceof Fence;
 			boolean hasFenceDiagonal = this.getMap().getGrid()[posX][posY] instanceof Fence;
 			
-			boolean hasMhoX = this.getMap().getGrid()[posX][this.getY()] instanceof Mho;
-			boolean hasMhoY = this.getMap().getGrid()[this.getX()][posY] instanceof Mho;
-			boolean hasMhoDiagonal = this.getMap().getGrid()[posX][posY] instanceof Mho;
+			boolean hasMhoX = this.getMap().getGrid()[posX][this.getY()] instanceof Mho && ((Mho)this.getMap().getGrid()[posX][this.getY()]).isValid();
+			boolean hasMhoY = this.getMap().getGrid()[this.getX()][posY] instanceof Mho && ((Mho)this.getMap().getGrid()[this.getX()][posY]).isValid();
+			boolean hasMhoDiagonal = this.getMap().getGrid()[posX][posY] instanceof Mho && ((Mho)this.getMap().getGrid()[posX][posY]).isValid();
 			
 			if(vert==0 && !hasMhoX){moveX(horiz);}
 			else if(horiz==0 && !hasMhoY){moveY(vert);}
@@ -61,9 +61,11 @@ public class Mho extends Entity{
 	}
 	
 	public void draw(Graphics g){
-		super.draw(g);
-		g.setColor(Color.WHITE);
-		g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
+		if(this.isValid()){
+			super.draw(g);
+			g.setColor(Color.WHITE);
+			g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
+		}
 	}
 	
 	public void setIndex(int index){this.index = index;}

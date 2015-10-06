@@ -3,6 +3,7 @@ package GUI;
 import java.awt.*;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import Entity.Player;
 import Input.KeyboardInputController;
@@ -41,7 +42,6 @@ public class GameBoard extends JComponent{
         		player = new Player(x,y);
         		player.setMap(map);
         		map.setPlayer(player);
-        		map.placePlayer(x, y);
         		playerOnBoard = true;
         		player.init();
         	}
@@ -94,6 +94,6 @@ public class GameBoard extends JComponent{
 	public KeyboardInputController getController() {return kbic;}
 	public Player getPlayer() {return player;}
 	public TileMap getMap() {return map;}
-	public void Lose(){this.currState=gameState.LOSE;}
-	public void Win(){this.currState=gameState.WIN;}
+	public void Lose(){this.currState=gameState.LOSE; JOptionPane.showMessageDialog(null, "We WIN boys");}
+	public void Win(){this.currState=gameState.WIN; JOptionPane.showMessageDialog(null, "We LOSE boys");}
 }

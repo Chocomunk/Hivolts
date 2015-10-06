@@ -38,6 +38,7 @@ public class TileMap {
 					Fence f = new Fence(i,j);
 					grid[i][j] = f;
 					wall_left -= 1;
+					f.index = wall_left+20;
 					fences[wall_left+20] = f;
 					
 				}
@@ -52,6 +53,7 @@ public class TileMap {
 				Fence f = new Fence(rand_x,rand_y);
 				grid[rand_x][rand_y] = f;
 				fences_left-=1;
+				f.index = fences_left;
 				fences[fences_left] = f;
 			}
 		}	
@@ -75,13 +77,10 @@ public class TileMap {
 	}
 	
 	public void nextTurn(){
-		for(Tile[] i: grid){
-			for(Tile j: i){
-				if(j instanceof Entity){
-					((Entity)j).nextTurn();
-				}
-			}
+		for(Mho m: mhos){
+			if(m!=null){m.nextTurn();}
 		}
+		this.player.nextTurn();
 	}
 	
 	public void Draw(Graphics g){
@@ -95,7 +94,7 @@ public class TileMap {
 	public void tick(){
 		boolean mhos_exist = false;
 		for(Mho m: mhos){if(m!=null){mhos_exist=true;}}
-		if(!mhos_exist){this.board.Win();}
+		if(!mhos_exist){this.board.Win(); this.board.repaint();}
 		else{player.tick();}
 	}
 	
@@ -112,8 +111,6 @@ public class TileMap {
 	public void delTile(int x, int y){grid[x][y] = null;}
 	public void delPlayer(){this.player = null;}
 	public void delMho(int index){mhos[index] = null;}
-	public void placePlayer(int x, int y, Player p){grid[x][y] = p;}
-	public void placePlayer(int x, int y){grid[x][y] = this.player;}
 	public void setPlayer(Player p){this.player = p;}
 	public void setBoard(GameBoard b){this.board = b;}
 }
