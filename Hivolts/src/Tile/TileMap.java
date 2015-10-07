@@ -1,7 +1,6 @@
 package Tile;
 
 import java.awt.Graphics;
-import Entity.Entity;
 import Entity.Mho;
 import Entity.Player;
 import GUI.GameBoard;
@@ -86,14 +85,14 @@ public class TileMap {
 	public void Draw(Graphics g){
 		for(Fence f: fences){f.draw(g);}
 		for(int i=0; i<mhos.length; i++){
-			if(mhos[i]!=null){mhos[i].draw(g);}
+			if(mhos[i].isValid()){mhos[i].draw(g);}
 		}
 		player.draw(g);
 	}
 	
 	public void tick(){
 		boolean mhos_exist = false;
-		for(Mho m: mhos){if(m!=null){mhos_exist=true;}}
+		for(Mho m: mhos){if(m.isValid()){mhos_exist=true;}}
 		if(!mhos_exist){this.board.Win(); this.board.repaint();}
 		else{player.tick();}
 	}

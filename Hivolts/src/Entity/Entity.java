@@ -1,7 +1,5 @@
 package Entity;
 
-import javax.swing.JOptionPane;
-
 import Tile.Fence;
 import Tile.Tile;
 
@@ -36,9 +34,13 @@ public abstract class Entity extends Tile{
 	public boolean checkDeath(int x, int y){
 		if(this.getMap().getGrid()[this.getX()+x][this.getY()+y] instanceof Fence){
 			this.die();
-			if(this instanceof Player){JOptionPane.showMessageDialog(null, "You died to Fence: "+((Fence)(this.getMap().getGrid()[this.getX()+x][this.getY()+y])).index);}
 			return false;
-		}else{return true;}
+		}else{
+			if(this instanceof Mho){
+				this.changeGrid(x,y);
+			}
+			return true;
+		}
 	}
 	
 	public abstract void nextTurn();
