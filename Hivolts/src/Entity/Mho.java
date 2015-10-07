@@ -1,101 +1,75 @@
 package Entity;
 
-import Tile.Fence;
-
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JOptionPane;
+
+import Tile.Fence;
+
 public class Mho extends Entity{
+	private int index;
+	
 	public Mho(int x, int y){
 		super(x, y);
 	}
 	
 	public void nextTurn(){
-//		CalcMove(this.getX(), this.getY());
-	}
-	void Die(){
-		
-	}
-	/**
-	 * Edan this is causing so many errors omg, wtf is going on with this
-	 * @param x
-	 * @param y
-	 */
-	private void CalcMove(int x, int y) {
-		int playerposx = 0;
-		int playerposy = 0;
-		int right;
-		int down;
-		
-		//check for players position in respect to the mho
-		if(playerposx == x){
-			if(playerposy > y){
-				Mcoords [1] = moveY(1);
-				return;
-			}
-			else{
-				Mcoords [1] = moveY(-1);
-				return;
-			}
-		}
-		else if(playerposx-x > 0){
-			// player is to the right of mho
-			right = 1;
-		}
-		else{
-			//player is to the left of mho
-			right = -1;
-		}
-		if(playerposy == y){
-			if(playerposx > x){
-				Mcoords [0] = moveX(1);
-				return;
-			}
-			else{
-				Mcoords [0] = moveX(-1);
-				return;
-			}
-		}
-		else if(playerposy - y > 0){
-			//play is below the mho
-			down = 1;
-		}
-		else{
-			//player is above the mho
-			down = -1;
-		}
-		
-		if(!(this.getMap().getTile(x + right,y + down) instanceof Fence)){
-			Mcoords [0] = moveX(right);
-			Mcoords [1] = moveY(down);
-
-		}
-		else{
-			if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||!(this.getMap().getTile(x+right,y) instanceof Fence)){
-				Mcoords [0] = moveX(right);
-			}
-			else{
-				if(!(this.getMap().getTile(x, y+down) instanceof Fence)){
-					Mcoords[1] = moveY(down);
-				}
-				else{
-					Die();
-				}
-			}
-//   if(Math.abs(playerposx-x)>=Math.abs(playerposy-y)||getTile(x+right)){
-//				Mcoords
-//			}
-		}
-		
-	
-		
-		
-		
-		
+		CalcMove();
 	}
 	
-int[] Mcoords = new int[2];
+	private void CalcMove(){
+		if(this.isValid()&&this.getMap().getPlayer().isValid()){
+			int px = this.getMap().getPlayer().getX();
+			int py = this.getMap().getPlayer().getY();
+			
+			int horiz = -1*normalize(this.getX()-px);
+			int vert = -1*normalize(this.getY()-py);
+			
+			int posX = this.getX()+horiz;
+			int posY = this.getY()+vert;
+			
+			boolean hasFenceX = this.getMap().getGrid()[posX][this.getY()] instanceof Fence;
+			boolean hasFenceY = this.getMap().getGrid()[this.getX()][posY] instanceof Fence;
+			boolean hasFenceDiagonal = this.getMap().getGrid()[posX][posY] instanceof Fence;
+			
+			boolean hasMhoX = this.getMap().getGrid()[posX][this.getY()] instanceof Mho && ((Mho)this.getMap().getGrid()[posX][this.getY()]).isValid();
+			boolean hasMhoY = this.getMap().getGrid()[this.getX()][posY] instanceof Mho && ((Mho)this.getMap().getGrid()[this.getX()][posY]).isValid();
+			boolean hasMhoDiagonal = this.getMap().getGrid()[posX][posY] instanceof Mho && ((Mho)this.getMap().getGrid()[posX][posY]).isValid();
+			
+			if(vert==0 && !hasMhoX){moveX(horiz);}
+			else if(horiz==0 && !hasMhoY){moveY(vert);}
+			else if(!hasFenceDiagonal && !hasMhoDiagonal){moveDiagonal(horiz,vert);}
+			else if(vert>horiz && !hasFenceY && !hasMhoY){moveY(vert);}
+			else if(horiz>vert && !hasFenceX && !hasMhoX){moveX(horiz);}
+			else if(!hasMhoDiagonal){moveDiagonal(horiz,vert);}
+			else if(vert>horiz && !hasMhoY){moveY(vert);}
+			else if(horiz>vert && !hasMhoX){moveX(horiz);}
+			
+			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die(); JOptionPane.showMessageDialog(null, "You Died to mho: "+this.getIndex());}
+		}
+	}
 
+	private int normalize(int x){
+		if(x==0){return x;}
+		else{return x/Math.abs(x);}
+	}
+	
+	public void die(){
+		super.die();
+		this.getMap().delMho(this.index);
+	}
+	
+	public void draw(Graphics g){
+		if(this.isValid()){
+			super.draw(g);
+			g.setColor(Color.WHITE);
+			g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
+		}
+	}
+	
+	public void setIndex(int index){this.index = index;}
+	public int getIndex(){return this.index;}
 }
 
 

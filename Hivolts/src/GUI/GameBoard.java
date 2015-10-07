@@ -3,6 +3,7 @@ package GUI;
 import java.awt.*;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import Entity.Player;
 import Input.KeyboardInputController;
@@ -14,6 +15,9 @@ public class GameBoard extends JComponent{
 	private KeyboardInputController kbic;
 	private Player player;
 	private TileMap map;
+	
+	public enum gameState {WIN, LOSE, PLAYING};
+	private gameState currState = gameState.PLAYING;
 	
     /**
      * Initializes component and variables
@@ -37,7 +41,7 @@ public class GameBoard extends JComponent{
 //        		System.out.println(x+","+y);
         		player = new Player(x,y);
         		player.setMap(map);
-        		map.placePlayer(x, y, player);
+        		map.setPlayer(player);
         		playerOnBoard = true;
         		player.init();
         	}
@@ -45,26 +49,41 @@ public class GameBoard extends JComponent{
     }
     
     public void paint(Graphics g) {
-//    	int w = 0,h =0;
-    	for(int x=0; x<12; x++){
-//    		w+=74;
-//    		h=0;
-    		for(int y=0; y<12; y++){
-//    			h+=74;
-    			g.setColor(Color.LIGHT_GRAY);
-    			g.fillRect(x*74, y*74, 74, 74);
-    			g.setColor(Color.BLUE);
-    			g.drawRect(x*74, y*74, 74, 74);
-    		}
+    	switch (currState){
+    	case PLAYING:
+//        	int w = 0,h =0;
+        	for(int x=0; x<12; x++){
+//        		w+=74;
+//        		h=0;
+        		for(int y=0; y<12; y++){
+//        			h+=74;
+        			g.setColor(Color.LIGHT_GRAY);
+        			g.fillRect(x*74, y*74, 74, 74);
+        			g.setColor(Color.BLUE);
+        			g.drawRect(x*74, y*74, 74, 74);
+        		}
+        	}
+//        	System.out.println("Expected Calculation: "+w+" | "+h);
+//        	System.out.println("Acctual Calculation: "+this.getWidth()+" | "+this.getHeight());
+        	map.Draw(g);
+    	case WIN:
+    		/**
+    		 * WIN STATE HERE
+    		 */
+    		System.out.println("We won!");
+    	case LOSE:
+    		/**
+    		 * LOSE STATE HERE
+    		 */
+    		System.out.println("We Lost!");
     	}
-//    	System.out.println("Expected Calculation: "+w+" | "+h);
-//    	System.out.println("Acctual Calculation: "+this.getWidth()+" | "+this.getHeight());
-    	map.Draw(g);
     }
     
     public void Update(){
-//		System.out.println("Update board ticked");
-    	player.tick();
+    	if(currState == gameState.PLAYING){
+//    		System.out.println("Update board ticked");
+        	map.tick();
+    	}
     }
     
     public void passTurn(){
@@ -75,4 +94,6 @@ public class GameBoard extends JComponent{
 	public KeyboardInputController getController() {return kbic;}
 	public Player getPlayer() {return player;}
 	public TileMap getMap() {return map;}
+	public void Lose(){this.currState=gameState.LOSE; JOptionPane.showMessageDialog(null, "We WIN boys");}
+	public void Win(){this.currState=gameState.WIN; JOptionPane.showMessageDialog(null, "We LOSE boys");}
 }
