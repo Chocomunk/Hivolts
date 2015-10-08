@@ -38,11 +38,9 @@ public class GameWindow extends JFrame{
         setSize(width, height);
         setBackground(bg);
         repaint();
-//    	System.out.println("Frame size: "+this.getWidth()+" | "+this.getHeight());
     }
     
     public void Update(){
-//		System.out.println("Update window ticked");
     	gb.Update();
     }
 }

@@ -1,10 +1,5 @@
 package Entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
-import javax.swing.JOptionPane;
-
 import Input.KeyboardInputController;
 import Tile.Fence;
 import Tile.Tile;
@@ -28,7 +23,6 @@ public class Player extends Entity{
 	}
 	
 	void resetDir(){
-//		System.out.println("dir resetting");
 		this.direction = KeyboardInputController.movement.NULL;
 		KIC.resetDir();
 	}
@@ -41,9 +35,6 @@ public class Player extends Entity{
 			if(!(this.getMap().getTile(x,y) instanceof Fence)){
 				fencePossible = false;
 				Tile otherTile = this.getMap().getGrid()[x][y];
-//				int p1 = 0,p2 = 0;
-//				if(otherTile!=null){p1=otherTile.getX();p2=otherTile.getY();}
-//				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
 				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
 					this.die(); 
 				}else{
@@ -70,12 +61,8 @@ public class Player extends Entity{
 		resetDir();
 	}
 	
-//	public void draw(Graphics g){
-//		if(this.isValid()){super.draw(g,Color.RED);}
-//	}
-	
-	public void tick(Graphics g){
-		super.tick(g);
+	public void tick(){
+		super.tick();
 		if(this.isValid()){
 
 			updateDIR();

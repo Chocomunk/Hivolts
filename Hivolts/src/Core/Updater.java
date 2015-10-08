@@ -7,12 +7,10 @@ public class Updater implements Runnable{
 	}
 	
 	public void run() {
-		// TODO Auto-generated method
 		try{
 			while(true){
 				Hivolts.Update();
 				Thread.sleep(16);
-//				System.out.println("Updating");
 			}
 		}catch(Exception e){System.out.println("Updater Error: ");e.printStackTrace();}
 	}

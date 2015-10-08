@@ -3,7 +3,6 @@ package GUI;
 import java.awt.*;
 
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
 import Entity.Player;
 import Input.KeyboardInputController;
@@ -15,9 +14,6 @@ public class GameBoard extends JComponent{
 	private KeyboardInputController kbic;
 	private Player player;
 	private TileMap map;
-	private Graphics graph;
-	
-	private boolean first_run = true;
 	
 	public enum gameState {WIN, LOSE, PLAYING};
 	private gameState currState = gameState.PLAYING;
@@ -41,7 +37,6 @@ public class GameBoard extends JComponent{
         	int y = (int) (Math.random()*10)+1;
         	
         	if(!(map.getTile(x, y) instanceof Tile)){
-//        		System.out.println(x+","+y);
         		player = new Player(x,y);
         		player.setMap(map);
         		map.setPlayer(player);
@@ -52,25 +47,17 @@ public class GameBoard extends JComponent{
     }
     
     public void paint(Graphics g) {
-    	if(first_run){map.drawInit(g);first_run=false;this.graph=g;}
     	switch (currState){
     	case PLAYING:
-//        	int w = 0,h =0;
         	for(int x=0; x<12; x++){
-//        		w+=74;
-//        		h=0;
         		for(int y=0; y<12; y++){
-//        			h+=74;
         			g.setColor(Color.DARK_GRAY);
         			g.fillRect(x*74, y*74, 74, 74);
         			g.setColor(Color.BLACK);
         			g.drawRect(x*74, y*74, 74, 74);
         		}
         	}
-//        	System.out.println("Expected Calculation: "+w+" | "+h);
-//        	System.out.println("Acctual Calculation: "+this.getWidth()+" | "+this.getHeight());
-//        	map.draw(g);
-        	map.tick(g);
+        	map.draw(g);
         	break;
     	case WIN:
     		/**
@@ -89,8 +76,7 @@ public class GameBoard extends JComponent{
     
     public void Update(){
     	if(currState == gameState.PLAYING){
-//    		System.out.println("Update board ticked");
-//        	map.tick(graph);
+        	map.tick();
     	}
     }
     

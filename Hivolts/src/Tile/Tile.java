@@ -1,14 +1,15 @@
 package Tile;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
+import Entity.Entity;
+import Entity.Player;
 import GUI.ImageHandler;
 
 public class Tile {
 	
 	private TileMap map;
-	private int x,y,width,height,old_x,old_y;
+	private int x,y,width,height,old_x,old_y,new_x,new_y;
 
 	private boolean valid = true;
 	private ImageHandler imgh;
@@ -19,21 +20,24 @@ public class Tile {
 		this.height = height;
 		this.x = x;
 		this.y = y;
-		this.old_x=x;this.old_y=y;
+		this.setCoords();
+		this.resetCoords();
 	}
 
+	public void setCoords(){
+		this.new_x=this.x*74+5;
+		this.new_y=this.y*74+5;
+		if(this instanceof Player){System.out.println("WAU");}
+	}
+	
+	void resetCoords(){
+		this.old_x=this.new_x;
+		this.old_y=this.new_y;
+	}
+	
 	public Tile(int x,int y){
 		this(x,y,64,64);
 	}
-	
-//	public void draw(Graphics g){
-//		this.draw(g,Color.BLUE);
-//	}
-//	
-//	public void draw(Graphics g, Color c){
-//		g.setColor(c);
-//		g.fillRect(x*74+5, y*74+5, width, height);
-//	}
 	
 	public void draw(Graphics g, int x, int y){
 		if(this.isValid()){
@@ -41,17 +45,16 @@ public class Tile {
 		}
 	}
 	
-	public void draw(Graphics g){this.draw(g,this.getX()*74+5,this.getY()*74+5);}
+	public void draw(Graphics g){this.draw(g,old_x,old_y);}
 	
-	public void tick(Graphics g){
-		if(old_x!=x || old_y!=y){
-			if(Math.abs(x-old_x)<6){old_x=x;}
-			else{old_x-=6*normalize(old_x-x);}
-			if(Math.abs(y-old_y)<6){old_y=y;}
-			else{old_y-=6*normalize(old_y-y);}
-			
-			this.draw(g,old_x,old_y);
+	public void tick(){
+		if(this instanceof Entity && this.isValid() && (old_x!=new_x || old_y!=new_y)){
+			if(Math.abs(new_x-old_x)<6){old_x=new_x;}
+			else{old_x-=6*normalize(old_x-new_x);}
+			if(Math.abs(new_y-old_y)<6){old_y=new_y;}
+			else{old_y-=6*normalize(old_y-new_y);}
 		}
+		if(this instanceof Player){System.out.println(old_x+","+old_y+" "+new_x+","+new_y);}
 	}
 	
 	public void setGrid(int x, int y) {
@@ -77,8 +80,8 @@ public class Tile {
 	public int getWidth() {return width;}
 	public int getHeight() {return height;}
 	public TileMap getMap(){return this.map;}
-	public void setX(int x) {this.x=x;}
-	public void setY(int y) {this.y=y;}
+	public void setX(int x) {this.x=x;this.setCoords();}
+	public void setY(int y) {this.y=y;this.setCoords();}
 	public void setMap(TileMap map){this.map = map;}
 	public boolean isValid(){return this.valid;}
 	public void setValid(boolean valid){this.valid = valid;}

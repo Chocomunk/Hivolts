@@ -1,8 +1,5 @@
 package Entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 import Tile.Fence;
 
 public class Mho extends Entity{
@@ -51,14 +48,6 @@ public class Mho extends Entity{
 	public void die(){
 		super.die();
 	}
-	
-//	public void draw(Graphics g){
-//		if(this.isValid()){
-//			super.draw(g);
-//			g.setColor(Color.WHITE);
-//			g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
-//		}
-//	}
 	
 	public void setIndex(int index){this.index = index;}
 	public int getIndex(){return this.index;}

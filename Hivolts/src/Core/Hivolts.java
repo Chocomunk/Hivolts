@@ -18,8 +18,8 @@ public class Hivolts {
 	}
 	
 	public static void Update(){
-//		System.out.println("Update game ticked");
 		gw.Update();
+		gw.repaint();
 	}
 	
 }
