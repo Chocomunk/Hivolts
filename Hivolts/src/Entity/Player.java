@@ -46,7 +46,6 @@ public class Player extends Entity{
 //				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
 				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
 					this.die(); 
-					JOptionPane.showMessageDialog(null, "You Died to mho: "+((Mho)otherTile).getIndex());
 				}else{
 					this.setX(x);
 					this.setY(y);
@@ -60,7 +59,7 @@ public class Player extends Entity{
 	public void die(){
 		super.die();
 		this.getMap().Lose();
-//		this.updateScreen();
+		this.updateScreen();
 	}
 	
 	void passTurn(){
