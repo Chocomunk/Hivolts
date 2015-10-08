@@ -82,7 +82,15 @@ public class TileMap {
 		this.player.nextTurn();
 	}
 	
-	public void Draw(Graphics g){
+//	public void draw(Graphics g){
+//		for(Fence f: fences){f.draw(g);}
+//		for(int i=0; i<mhos.length; i++){
+//			if(mhos[i].isValid()){mhos[i].draw(g);}
+//		}
+//		player.draw(g);
+//	}
+	
+	public void drawInit(Graphics g){
 		for(Fence f: fences){f.draw(g);}
 		for(int i=0; i<mhos.length; i++){
 			if(mhos[i].isValid()){mhos[i].draw(g);}
@@ -90,11 +98,19 @@ public class TileMap {
 		player.draw(g);
 	}
 	
-	public void tick(){
+	public void tick(Graphics g){
 		boolean mhos_exist = false;
-for(Mho m: mhos){if(m.isValid()){mhos_exist=true;}}
+		for(Mho m: mhos){if(m.isValid()){mhos_exist=true;}}
 		if(!mhos_exist){this.board.Win(); this.board.repaint();}
-		else{player.tick();}
+		else{
+			for(Tile[] i: grid){
+				for(Tile t: i){
+					if(t!=null){
+						t.tick(g);
+					}
+				}
+			}
+		}
 	}
 	
 	public void Lose(){this.board.Lose();}

@@ -50,7 +50,7 @@ public class ImageHandler {
 		}
 	}
 	
-	public void draw(Graphics g){
-		g.drawImage(img, this.tile.getX()*74+5, this.tile.getY()*74+5, null);
+	public void draw(Graphics g, int x, int y){
+		g.drawImage(img,x,y,null);
 	}
 }

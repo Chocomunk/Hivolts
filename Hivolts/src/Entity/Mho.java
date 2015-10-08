@@ -47,11 +47,6 @@ public class Mho extends Entity{
 			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die();}
 		}
 	}
-
-	private int normalize(int x){
-		if(x==0){return x;}
-		else{return x/Math.abs(x);}
-	}
 	
 	public void die(){
 		super.die();

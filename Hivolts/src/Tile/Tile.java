@@ -8,7 +8,7 @@ import GUI.ImageHandler;
 public class Tile {
 	
 	private TileMap map;
-	private int x,y,width,height;
+	private int x,y,width,height,old_x,old_y;
 
 	private boolean valid = true;
 	private ImageHandler imgh;
@@ -19,6 +19,7 @@ public class Tile {
 		this.height = height;
 		this.x = x;
 		this.y = y;
+		this.old_x=x;this.old_y=y;
 	}
 
 	public Tile(int x,int y){
@@ -34,15 +35,34 @@ public class Tile {
 //		g.fillRect(x*74+5, y*74+5, width, height);
 //	}
 	
-	public void draw(Graphics g){
+	public void draw(Graphics g, int x, int y){
 		if(this.isValid()){
-			imgh.draw(g);
+			imgh.draw(g,x,y);
 		}
 	}
-
+	
+	public void draw(Graphics g){this.draw(g,this.getX()*74+5,this.getY()*74+5);}
+	
+	public void tick(Graphics g){
+		if(old_x!=x || old_y!=y){
+			if(Math.abs(x-old_x)<6){old_x=x;}
+			else{old_x-=6*normalize(old_x-x);}
+			if(Math.abs(y-old_y)<6){old_y=y;}
+			else{old_y-=6*normalize(old_y-y);}
+			
+			this.draw(g,old_x,old_y);
+		}
+	}
+	
 	public void setGrid(int x, int y) {
 		this.getMap().getGrid()[this.x][this.y]=null;
 		this.getMap().getGrid()[x][y]=this;
+	}
+	
+
+	public static int normalize(int x){
+		if(x==0){return x;}
+		else{return x/Math.abs(x);}
 	}
 	
 	public void updateScreen(){this.getMap().getBoard().repaint();}

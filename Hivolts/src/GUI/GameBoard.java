@@ -15,6 +15,9 @@ public class GameBoard extends JComponent{
 	private KeyboardInputController kbic;
 	private Player player;
 	private TileMap map;
+	private Graphics graph;
+	
+	private boolean first_run = true;
 	
 	public enum gameState {WIN, LOSE, PLAYING};
 	private gameState currState = gameState.PLAYING;
@@ -49,6 +52,7 @@ public class GameBoard extends JComponent{
     }
     
     public void paint(Graphics g) {
+    	if(first_run){map.drawInit(g);first_run=false;this.graph=g;}
     	switch (currState){
     	case PLAYING:
 //        	int w = 0,h =0;
@@ -65,7 +69,8 @@ public class GameBoard extends JComponent{
         	}
 //        	System.out.println("Expected Calculation: "+w+" | "+h);
 //        	System.out.println("Acctual Calculation: "+this.getWidth()+" | "+this.getHeight());
-        	map.Draw(g);
+//        	map.draw(g);
+        	map.tick(g);
         	break;
     	case WIN:
     		/**
@@ -85,7 +90,7 @@ public class GameBoard extends JComponent{
     public void Update(){
     	if(currState == gameState.PLAYING){
 //    		System.out.println("Update board ticked");
-        	map.tick();
+//        	map.tick(graph);
     	}
     }
     

@@ -74,7 +74,8 @@ public class Player extends Entity{
 //		if(this.isValid()){super.draw(g,Color.RED);}
 //	}
 	
-	public void tick(){
+	public void tick(Graphics g){
+		super.tick(g);
 		if(this.isValid()){
 
 			updateDIR();
