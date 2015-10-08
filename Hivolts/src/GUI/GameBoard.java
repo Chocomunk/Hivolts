@@ -66,16 +66,19 @@ public class GameBoard extends JComponent{
 //        	System.out.println("Expected Calculation: "+w+" | "+h);
 //        	System.out.println("Acctual Calculation: "+this.getWidth()+" | "+this.getHeight());
         	map.Draw(g);
+        	break;
     	case WIN:
     		/**
     		 * WIN STATE HERE
     		 */
     		System.out.println("We won!");
+    		break;
     	case LOSE:
     		/**
     		 * LOSE STATE HERE
     		 */
     		System.out.println("We Lost!");
+    		break;
     	}
     }
     
@@ -94,6 +97,6 @@ public class GameBoard extends JComponent{
 	public KeyboardInputController getController() {return kbic;}
 	public Player getPlayer() {return player;}
 	public TileMap getMap() {return map;}
-	public void Lose(){this.currState=gameState.LOSE; JOptionPane.showMessageDialog(null, "We WIN boys");}
-	public void Win(){this.currState=gameState.WIN; JOptionPane.showMessageDialog(null, "We LOSE boys");}
+	public void Lose(){this.currState=gameState.LOSE;}
+	public void Win(){this.currState=gameState.WIN;}
 }

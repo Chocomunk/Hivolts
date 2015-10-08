@@ -40,20 +40,27 @@ public class Player extends Entity{
 			int y = (int)((Math.random()*11)+1);
 			if(!(this.getMap().getTile(x,y) instanceof Fence)){
 				fencePossible = false;
-				this.setX(x);
-				this.setY(y);
+				Tile otherTile = this.getMap().getGrid()[x][y];
+				int p1 = 0,p2 = 0;
+				if(otherTile!=null){p1=otherTile.getX();p2=otherTile.getY();}
+				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
+				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
+					this.die(); 
+					JOptionPane.showMessageDialog(null, "You Died to mho: "+((Mho)otherTile).getIndex());
+				}else{
+					this.setX(x);
+					this.setY(y);
+					this.resetDir();
+					this.updateScreen();
+				}
 			}
 		}
-		Tile otherTile = this.getMap().getGrid()[this.getX()][this.getY()];
-		if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){this.die(); JOptionPane.showMessageDialog(null, "You Died to mho: "+((Mho)otherTile).getIndex());}
-		this.resetDir();
-		this.updateScreen();
 	}
 	
 	public void die(){
 		super.die();
 		this.getMap().Lose();
-		this.updateScreen();
+//		this.updateScreen();
 	}
 	
 	void passTurn(){
@@ -112,6 +119,8 @@ public class Player extends Entity{
 					case DOWN_LEFT:
 						if(down&&left)
 							moveDiagonal(-1,1);
+						break;
+					case SIT:
 						break;
 					}
 					passTurn();

@@ -3,8 +3,6 @@ package Entity;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JOptionPane;
-
 import Tile.Fence;
 
 public class Mho extends Entity{
@@ -46,7 +44,7 @@ public class Mho extends Entity{
 			else if(vert>horiz && !hasMhoY){moveY(vert);}
 			else if(horiz>vert && !hasMhoX){moveX(horiz);}
 			
-			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die(); JOptionPane.showMessageDialog(null, "You Died to mho: "+this.getIndex());}
+			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die();}
 		}
 	}
 
@@ -57,7 +55,6 @@ public class Mho extends Entity{
 	
 	public void die(){
 		super.die();
-		this.getMap().delMho(this.index);
 	}
 	
 	public void draw(Graphics g){
