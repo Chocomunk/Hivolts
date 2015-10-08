@@ -41,8 +41,8 @@ public class Player extends Entity{
 			if(!(this.getMap().getTile(x,y) instanceof Fence)){
 				fencePossible = false;
 				Tile otherTile = this.getMap().getGrid()[x][y];
-				int p1 = 0,p2 = 0;
-				if(otherTile!=null){p1=otherTile.getX();p2=otherTile.getY();}
+//				int p1 = 0,p2 = 0;
+//				if(otherTile!=null){p1=otherTile.getX();p2=otherTile.getY();}
 //				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
 				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
 					this.die(); 
@@ -71,7 +71,7 @@ public class Player extends Entity{
 	}
 	
 	public void draw(Graphics g){
-		if(this.isValid()){super.draw(g,Color.GREEN);}
+		if(this.isValid()){super.draw(g,Color.RED);}
 	}
 	
 	public void tick(){

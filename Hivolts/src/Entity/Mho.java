@@ -60,8 +60,8 @@ public class Mho extends Entity{
 	public void draw(Graphics g){
 		if(this.isValid()){
 			super.draw(g);
-			g.setColor(Color.WHITE);
-			g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
+//			g.setColor(Color.WHITE);
+//			g.drawString(this.getIndex()+"", this.getX()*74 +35, this.getY()*74 +35);
 		}
 	}
 	

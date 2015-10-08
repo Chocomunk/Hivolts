@@ -37,7 +37,7 @@ public class TileMap {
 					Fence f = new Fence(i,j);
 					grid[i][j] = f;
 					wall_left -= 1;
-					f.index = wall_left+20;
+//					f.index = wall_left+20;
 					fences[wall_left+20] = f;
 					
 				}
@@ -52,7 +52,7 @@ public class TileMap {
 				Fence f = new Fence(rand_x,rand_y);
 				grid[rand_x][rand_y] = f;
 				fences_left-=1;
-				f.index = fences_left;
+//				f.index = fences_left;
 				fences[fences_left] = f;
 			}
 		}	

@@ -1,5 +1,8 @@
 package Entity;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import Tile.Fence;
 import Tile.Tile;
 
@@ -41,6 +44,11 @@ public abstract class Entity extends Tile{
 			}
 			return true;
 		}
+	}
+	
+	public void draw(Graphics g){
+		g.setColor(Color.BLUE);
+		g.fillOval(this.getX()*74+5, this.getY()*74+5, this.getWidth(), this.getHeight());
 	}
 	
 	public abstract void nextTurn();

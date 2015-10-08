@@ -57,9 +57,9 @@ public class GameBoard extends JComponent{
 //        		h=0;
         		for(int y=0; y<12; y++){
 //        			h+=74;
-        			g.setColor(Color.LIGHT_GRAY);
+        			g.setColor(Color.DARK_GRAY);
         			g.fillRect(x*74, y*74, 74, 74);
-        			g.setColor(Color.BLUE);
+        			g.setColor(Color.BLACK);
         			g.drawRect(x*74, y*74, 74, 74);
         		}
         	}
