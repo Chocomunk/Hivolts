@@ -70,9 +70,9 @@ public class Player extends Entity{
 		resetDir();
 	}
 	
-	public void draw(Graphics g){
-		if(this.isValid()){super.draw(g,Color.RED);}
-	}
+//	public void draw(Graphics g){
+//		if(this.isValid()){super.draw(g,Color.RED);}
+//	}
 	
 	public void tick(){
 		if(this.isValid()){

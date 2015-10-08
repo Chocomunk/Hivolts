@@ -8,7 +8,6 @@ import Tile.Tile;
 
 public abstract class Entity extends Tile{
 	
-	private boolean valid = true;
 	
 	public Entity(int x, int y){	
 		super(x,y);
@@ -20,15 +19,15 @@ public abstract class Entity extends Tile{
 	}
 	
 	public void moveX(int x){
-		if(valid&&this.checkDeath(x,0)){this.changeX(x);}
+		if(this.isValid()&&this.checkDeath(x,0)){this.changeX(x);}
 	}
 	
 	public void moveY(int y){
-		if(valid&&this.checkDeath(0,y)){this.changeY(y);}
+		if(this.isValid()&&this.checkDeath(0,y)){this.changeY(y);}
 	}
 	
 	public void moveDiagonal(int x, int y){
-		if(valid&&this.checkDeath(x,y)){
+		if(this.isValid()&&this.checkDeath(x,y)){
 			this.changeX(x);
 			this.changeY(y);
 		}
@@ -52,7 +51,4 @@ public abstract class Entity extends Tile{
 	}
 	
 	public abstract void nextTurn();
-	
-	public boolean isValid(){return this.valid;}
-	public void setValid(boolean valid){this.valid = valid;}
 }

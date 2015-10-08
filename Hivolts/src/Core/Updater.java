@@ -14,6 +14,6 @@ public class Updater implements Runnable{
 				Thread.sleep(16);
 //				System.out.println("Updating");
 			}
-		}catch(Exception e){System.out.println("I aint Updating cause");e.printStackTrace();}
+		}catch(Exception e){System.out.println("Updater Error: ");e.printStackTrace();}
 	}
 }
