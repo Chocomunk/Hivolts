@@ -74,10 +74,25 @@ public class TileMap {
 	}
 	
 	public void nextTurn(){
-		for(Mho m: mhos){
-			if(m!=null){m.nextTurn();}
+		boolean canMove = true;
+		while(canMove){
+			canMove = false;
+			for(Mho m: mhos){
+				if(m!=null&&!m.hasMoved()&&m.isValid()&&m.getMoveTimes()<5){
+					m.nextTurn();
+					canMove=true;
+//					System.out.println("oh my! we arent even done! because mho " + m.getIndex() + " is being a huge butt!");
+				}
+			}
 		}
+		System.out.println("WE CLEARED");
 		this.player.nextTurn();
+		for(Mho m: mhos){
+			if(m!=null){
+				m.resetMoved();
+				m.resetTimes();
+			}
+		}
 	}
 	
 	public void draw(Graphics g){

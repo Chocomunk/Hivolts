@@ -27,7 +27,7 @@ public class Tile {
 	public void setCoords(){
 		this.new_x=this.x*74+5;
 		this.new_y=this.y*74+5;
-		if(this instanceof Player){System.out.println("WAU");}
+//		if(this instanceof Player){System.out.println("WAU");}
 	}
 	
 	void resetCoords(){
@@ -54,7 +54,7 @@ public class Tile {
 			if(Math.abs(new_y-old_y)<6){old_y=new_y;}
 			else{old_y-=6*normalize(old_y-new_y);}
 		}
-		if(this instanceof Player){System.out.println(old_x+","+old_y+" "+new_x+","+new_y);}
+//		if(this instanceof Player){System.out.println(old_x+","+old_y+" "+new_x+","+new_y);}
 	}
 	
 	public void setGrid(int x, int y) {

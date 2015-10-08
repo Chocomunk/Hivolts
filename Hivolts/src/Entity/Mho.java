@@ -1,9 +1,14 @@
 package Entity;
 
+import java.awt.Graphics;
+
 import Tile.Fence;
 
 public class Mho extends Entity{
 	private int index;
+	
+	private boolean moved = false;
+	private int moveTimes = 0;
 	
 	public Mho(int x, int y){
 		super(x, y);
@@ -32,6 +37,8 @@ public class Mho extends Entity{
 			boolean hasMhoY = this.getMap().getGrid()[this.getX()][posY] instanceof Mho && ((Mho)this.getMap().getGrid()[this.getX()][posY]).isValid();
 			boolean hasMhoDiagonal = this.getMap().getGrid()[posX][posY] instanceof Mho && ((Mho)this.getMap().getGrid()[posX][posY]).isValid();
 			
+			this.setMoved();
+			
 			if(vert==0 && !hasMhoX){moveX(horiz);}
 			else if(horiz==0 && !hasMhoY){moveY(vert);}
 			else if(!hasFenceDiagonal && !hasMhoDiagonal){moveDiagonal(horiz,vert);}
@@ -40,6 +47,9 @@ public class Mho extends Entity{
 			else if(!hasMhoDiagonal){moveDiagonal(horiz,vert);}
 			else if(vert>horiz && !hasMhoY){moveY(vert);}
 			else if(horiz>vert && !hasMhoX){moveX(horiz);}
+			else{this.resetMoved();moveTimes++;}
+			
+//			if(!this.hasMoved()){System.out.println("I am mho "+this.getIndex()+" and I am being a huge butt!");}
 			
 			if(this.getX()==px && this.getY()==py){this.getMap().getPlayer().die();}
 		}
@@ -49,8 +59,21 @@ public class Mho extends Entity{
 		super.die();
 	}
 	
+	public void draw(Graphics g){
+		super.draw(g);
+		g.drawString(this.getIndex()+"", this.getX()*74+35, this.getY()*74+64);
+	}
+	
 	public void setIndex(int index){this.index = index;}
 	public int getIndex(){return this.index;}
+	
+	public void setMoved(){this.moved=true;}
+	public void resetMoved(){this.moved=false;}
+	
+	public int getMoveTimes(){return this.moveTimes;}
+	public void resetTimes(){this.moveTimes=0;}
+	
+	public boolean hasMoved(){return this.moved;}
 }
 
 

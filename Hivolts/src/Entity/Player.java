@@ -74,6 +74,7 @@ public class Player extends Entity{
 			
 			if(this.direction != KeyboardInputController.movement.NULL){
 				if(this.direction !=KeyboardInputController.movement.JUMP){
+					System.out.println("YOLO BOYS WE BACK HERE");
 					switch(this.direction){
 					case UP:
 						if(up)
