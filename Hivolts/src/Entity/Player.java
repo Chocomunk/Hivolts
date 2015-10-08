@@ -2,8 +2,12 @@ package Entity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import javax.swing.JOptionPane;
+
 import Input.KeyboardInputController;
 import Tile.Fence;
+import Tile.Tile;
 
 public class Player extends Entity{
 	
@@ -36,20 +40,27 @@ public class Player extends Entity{
 			int y = (int)((Math.random()*11)+1);
 			if(!(this.getMap().getTile(x,y) instanceof Fence)){
 				fencePossible = false;
-				this.setX(x);
-				this.setY(y);
+				Tile otherTile = this.getMap().getGrid()[x][y];
+				int p1 = 0,p2 = 0;
+				if(otherTile!=null){p1=otherTile.getX();p2=otherTile.getY();}
+//				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
+				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
+					this.die(); 
+					JOptionPane.showMessageDialog(null, "You Died to mho: "+((Mho)otherTile).getIndex());
+				}else{
+					this.setX(x);
+					this.setY(y);
+					this.resetDir();
+					this.updateScreen();
+				}
 			}
 		}
-		if(this.getMap().getGrid()[this.getX()][this.getY()] instanceof Mho){this.die();}
-		this.resetDir();
-		this.updateScreen();
 	}
 	
 	public void die(){
 		super.die();
-		this.getMap().delPlayer();
 		this.getMap().Lose();
-		this.updateScreen();
+//		this.updateScreen();
 	}
 	
 	void passTurn(){
@@ -61,59 +72,63 @@ public class Player extends Entity{
 	}
 	
 	public void draw(Graphics g){
-		super.draw(g,Color.GREEN);
+		if(this.isValid()){super.draw(g,Color.GREEN);}
 	}
 	
 	public void tick(){
-//		System.out.println(this.getX()+","+this.getY());
-//		System.out.println(direction);
-		updateDIR();
-		
-		boolean up = this.getY()>0;
-		boolean down = this.getY()<this.getMap().getGrid()[0].length-1;
-		boolean right = this.getX()<this.getMap().getGrid().length-1;
-		boolean left = this.getX()>0;
-		
-		if(this.direction != KeyboardInputController.movement.NULL){
-			if(this.direction !=KeyboardInputController.movement.JUMP){
-				switch(this.direction){
-				case UP:
-					if(up)
-						moveY(-1);
-					break;
-				case DOWN:
-					if(down)
-						moveY(1);
-					break;
-				case RIGHT:
-					if(right)
-						moveX(1);
-					break;
-				case LEFT:
-					if(left)
-						moveX(-1);
-					break;
-				case UP_RIGHT:
-					if(up&&right)
-						moveDiagonal(1,-1);
-					break;
-				case UP_LEFT:
-					if(up&&left)
-						moveDiagonal(-1,-1);
-					break;
-				case DOWN_RIGHT:
-					if(down&&right)
-						moveDiagonal(1,1);
-					break;
-				case DOWN_LEFT:
-					if(down&&left)
-						moveDiagonal(-1,1);
-					break;
+		if(this.isValid()){
+
+			updateDIR();
+			
+			boolean up = this.getY()>0;
+			boolean down = this.getY()<this.getMap().getGrid()[0].length-1;
+			boolean right = this.getX()<this.getMap().getGrid().length-1;
+			boolean left = this.getX()>0;
+			
+			if(this.direction != KeyboardInputController.movement.NULL){
+				if(this.direction !=KeyboardInputController.movement.JUMP){
+					switch(this.direction){
+					case UP:
+						if(up)
+							moveY(-1);
+						break;
+					case DOWN:
+						if(down)
+							moveY(1);
+						break;
+					case RIGHT:
+						if(right)
+							moveX(1);
+						break;
+					case LEFT:
+						if(left)
+							moveX(-1);
+						break;
+					case UP_RIGHT:
+						if(up&&right)
+							moveDiagonal(1,-1);
+						break;
+					case UP_LEFT:
+						if(up&&left)
+							moveDiagonal(-1,-1);
+						break;
+					case DOWN_RIGHT:
+						if(down&&right)
+							moveDiagonal(1,1);
+						break;
+					case DOWN_LEFT:
+						if(down&&left)
+							moveDiagonal(-1,1);
+						break;
+					case SIT:
+						break;
+					}
+					passTurn();
+				}else{
+					jump();
 				}
-				passTurn();
-			}else{
-				jump();
 			}
+		
 		}
 	}
 

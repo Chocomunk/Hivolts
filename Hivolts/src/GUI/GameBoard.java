@@ -3,6 +3,7 @@ package GUI;
 import java.awt.*;
 
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 
 import Entity.Player;
 import Input.KeyboardInputController;
@@ -41,7 +42,6 @@ public class GameBoard extends JComponent{
         		player = new Player(x,y);
         		player.setMap(map);
         		map.setPlayer(player);
-        		map.placePlayer(x, y);
         		playerOnBoard = true;
         		player.init();
         	}
@@ -66,16 +66,19 @@ public class GameBoard extends JComponent{
 //        	System.out.println("Expected Calculation: "+w+" | "+h);
 //        	System.out.println("Acctual Calculation: "+this.getWidth()+" | "+this.getHeight());
         	map.Draw(g);
+        	break;
     	case WIN:
     		/**
     		 * WIN STATE HERE
     		 */
     		System.out.println("We won!");
+    		break;
     	case LOSE:
     		/**
     		 * LOSE STATE HERE
     		 */
     		System.out.println("We Lost!");
+    		break;
     	}
     }
     
