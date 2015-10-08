@@ -28,7 +28,7 @@ public class GameWindow extends JFrame{
         width = gb.getWidth()+137;
         height = gb.getHeight()+159;
     }
- 
+  
     /**
      * sets size of the window with width and height value
      * with a hard-coded value added to height in order to

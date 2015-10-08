@@ -95,7 +95,7 @@ public class TileMap {
 	public void tick(){
 		boolean mhos_exist = false;
 		for(Mho m: mhos){if(m!=null){mhos_exist=true;}}
-		if(!mhos_exist){this.board.Win();}
+		if(!mhos_exist){this.board.Win(); this.board.repaint();}
 		else{player.tick();}
 	}
 	
