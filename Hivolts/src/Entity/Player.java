@@ -43,7 +43,7 @@ public class Player extends Entity{
 				Tile otherTile = this.getMap().getGrid()[x][y];
 				int p1 = 0,p2 = 0;
 				if(otherTile!=null){p1=otherTile.getX();p2=otherTile.getY();}
-				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
+//				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
 				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
 					this.die(); 
 					JOptionPane.showMessageDialog(null, "You Died to mho: "+((Mho)otherTile).getIndex());
