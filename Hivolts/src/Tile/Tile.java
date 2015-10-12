@@ -72,8 +72,6 @@ public class Tile {
 		else{return x/Math.abs(x);}
 	}
 	
-	public void updateScreen(){this.getMap().getBoard().repaint();}
-	
 	public void changeX(int x) {this.setX(this.x+x);}
 	public void changeY(int y) {this.setY(this.y+y);}
 	
