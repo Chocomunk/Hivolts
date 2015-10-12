@@ -12,6 +12,9 @@ public class Tile {
 	private int x,y,width,height,old_x,old_y,new_x,new_y;
 
 	private boolean valid = true;
+	private boolean animation_active = false;
+	
+	
 	private ImageHandler imgh;
 	
 	public Tile(int x, int y, int width, int height){
@@ -49,11 +52,12 @@ public class Tile {
 	
 	public void tick(){
 		if(this instanceof Entity && this.isValid() && (old_x!=new_x || old_y!=new_y)){
+			animation_active = true;
 			if(Math.abs(new_x-old_x)<6){old_x=new_x;}
 			else{old_x-=6*normalize(old_x-new_x);}
 			if(Math.abs(new_y-old_y)<6){old_y=new_y;}
 			else{old_y-=6*normalize(old_y-new_y);}
-		}
+		}else{animation_active = false;}
 //		if(this instanceof Player){System.out.println(old_x+","+old_y+" "+new_x+","+new_y);}
 	}
 	
@@ -85,4 +89,5 @@ public class Tile {
 	public void setMap(TileMap map){this.map = map;}
 	public boolean isValid(){return this.valid;}
 	public void setValid(boolean valid){this.valid = valid;}
+	public boolean isAnimationActive(){return this.animation_active;}
 }
