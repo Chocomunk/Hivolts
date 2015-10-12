@@ -9,6 +9,8 @@ public class Player extends Entity{
 	KeyboardInputController KIC;
 	KeyboardInputController.movement direction;
 	
+	private boolean death_activated = false;
+	
 	public Player(int x, int y){	
 		super(x,y);
 	}
@@ -37,20 +39,21 @@ public class Player extends Entity{
 				Tile otherTile = this.getMap().getGrid()[x][y];
 				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
 					this.die(); 
-				}else{
-					this.setX(x);
-					this.setY(y);
-					this.resetDir();
-					this.updateScreen();
 				}
+				this.setX(x);
+				this.setY(y);
+				this.resetDir();
 			}
 		}
 	}
 	
 	public void die(){
+		this.death_activated = true;
+	}
+	
+	public void activateDeath(){
 		super.die();
 		this.getMap().Lose();
-		this.updateScreen();
 	}
 	
 	void passTurn(){
@@ -63,7 +66,9 @@ public class Player extends Entity{
 	
 	public void tick(){
 		super.tick();
-		if(this.isValid()){
+		if(this.death_activated&&!this.isAnimationActive){
+			this.activateDeath();
+		}else if(this.isValid()){
 
 			updateDIR();
 			
