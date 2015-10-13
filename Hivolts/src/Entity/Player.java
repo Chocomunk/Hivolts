@@ -83,18 +83,21 @@ public class Player extends Entity{
 	 * Called every tick updated
 	 */
 	public void tick(){
+		//Calls tick for super (controlls animation)
 		super.tick();
-		if(this.death_activated&&!this.isAnimationActive()){
-			this.activateDeath();
-		}else if(this.isValid()){
-
+		//Check whether player can die, if so then die
+		if(this.death_activated&&!this.isAnimationActive()){this.activateDeath();}
+		else if(this.isValid()){
+			
 			updateDIR();
 			
+			//If movement is within grid bounds
 			boolean up = this.getY()>0;
 			boolean down = this.getY()<this.getMap().getGrid()[0].length-1;
 			boolean right = this.getX()<this.getMap().getGrid().length-1;
 			boolean left = this.getX()>0;
 			
+			//Checks the direction, then moves in that direction
 			if(this.direction != KeyboardInputController.movement.NULL){
 				if(this.direction !=KeyboardInputController.movement.JUMP){
 					switch(this.direction){
