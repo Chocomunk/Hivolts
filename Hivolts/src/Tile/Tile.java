@@ -34,6 +34,12 @@ public class Tile {
 	
 	public void draw(Graphics g, int x, int y){
 		if(this.isValid()){
+			
+			if(this instanceof Fence){
+				x = x-5;
+				y = y-5;
+				
+			}
 			imgh.draw(g,x,y);
 		}
 	}
