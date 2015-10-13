@@ -44,6 +44,12 @@ public class Tile {
 	
 	public void draw(Graphics g, int x, int y){
 		if(this.isValid()){
+			
+			if(this instanceof Fence){
+				x = x-5;
+				y = y-5;
+				
+			}
 			imgh.draw(g,x,y);
 		}
 	}
@@ -57,7 +63,10 @@ public class Tile {
 			else{old_x-=6*normalize(old_x-new_x);}
 			if(Math.abs(new_y-old_y)<6){old_y=new_y;}
 			else{old_y-=6*normalize(old_y-new_y);}
-		}else{animation_active = false;}
+		}else{
+			animation_active = false;
+			
+		}
 //		if(this instanceof Player){System.out.println(old_x+","+old_y+" "+new_x+","+new_y);}
 	}
 	

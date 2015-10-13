@@ -1,7 +1,11 @@
 package GUI;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import Entity.Player;
@@ -14,6 +18,9 @@ public class GameBoard extends JComponent{
 	private KeyboardInputController kbic;
 	private Player player;
 	private TileMap map;
+	private final Color backgroundc = new Color(0x660066);
+	private final Color outline = new Color(0x470047);
+	private BufferedImage background;
 	
 	public enum gameState {WIN, LOSE, PLAYING};
 	private gameState currState = gameState.PLAYING;
@@ -29,6 +36,12 @@ public class GameBoard extends JComponent{
     }
      
     void init(){
+    	try {
+			background  = ImageIO.read(new File("res/background.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
     	map = new TileMap(12,12);
     	map.setBoard(this);
     	boolean playerOnBoard = false;
@@ -49,12 +62,13 @@ public class GameBoard extends JComponent{
     public void paint(Graphics g) {
     	switch (currState){
     	case PLAYING:
+    		
+    		g.drawImage(background,0,0,null);
         	for(int x=0; x<12; x++){
         		for(int y=0; y<12; y++){
-        			g.setColor(Color.DARK_GRAY);
-        			g.fillRect(x*74, y*74, 74, 74);
-        			g.setColor(Color.BLACK);
-        			g.drawRect(x*74, y*74, 74, 74);
+        			
+        			//g.setColor(outline);
+        			//g.drawRect(x*74, y*74, 74, 74);
         		}
         	}
         	map.draw(g);
