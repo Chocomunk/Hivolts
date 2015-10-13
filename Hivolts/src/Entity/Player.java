@@ -6,46 +6,72 @@ import Tile.Tile;
 
 public class Player extends Entity{
 	
-	//KeyboardInputController of the game, and its direction
+	//KeyboardInputController of the game, and its direction (movement orientation)
 	KeyboardInputController KIC;
 	KeyboardInputController.movement direction;
 	
 	//Whether the death of this player is activated
 	private boolean death_activated = false;
 	
+	/**
+	 * Instantiates an Player
+	 * @param x X-pos on grid
+	 * @param y Y-pos on grid
+	 */
 	public Player(int x, int y){super(x,y);}
 	
+	/**
+	 * Initializes the player
+	 */
 	public void init(){
 		this.KIC = this.getMap().getBoard().getController();
 		resetDir();
 	}
 	
+	//Methods to control the games turns
+	/**Tells the game to move on to the next turn*/
 	void passTurn(){this.getMap().getBoard().passTurn();}
+	/**Called when a new turn occurs*/
 	public void nextTurn(){resetDir();}
 	
+	//Methods to control the Players direction
+	/**Updates the players direction to the KeyboardInputControllers direction*/
 	void updateDIR(){direction = KIC.getDirection();}
+	/**Resets the movement of the KeyBoardController and this player to NULL*/
 	void resetDir(){
 		this.direction = KeyboardInputController.movement.NULL;
 		KIC.resetDir();
 	}
 
+	//Methods to control the players Death
+	/**Called when the player enters a situation to die
+	 * Activates the possibility to die*/
 	public void die(){this.death_activated = true;}
+	/**Called when Death possibility is achieved and favorable*/
 	public void activateDeath(){
 		super.die();
 		this.getMap().Lose();
 	}
 	
+	/**Governs logic of the players jumping*/
 	public void jump(){
+		//Boolean variable to control the while loop
 		boolean fencePossible = true;
+		
+		//While there is a possibility of a fence on the desired tile, select a new Tile
 		while(fencePossible){
+			//Random values for the new selected Tile
 			int x = (int)((Math.random()*11)+1);
 			int y = (int)((Math.random()*11)+1);
+			
 			if(!(this.getMap().getTile(x,y) instanceof Fence)){
 				fencePossible = false;
 				Tile otherTile = this.getMap().getGrid()[x][y];
-				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
-					this.die(); 
-				}
+				
+				//If the other tile is a Mho then die
+				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){this.die();}
+				
+				//Moves the Player, then resets the direction
 				this.setX(x);
 				this.setY(y);
 				this.resetDir();
@@ -53,6 +79,9 @@ public class Player extends Entity{
 		}
 	}
 	
+	/**
+	 * Called every tick updated
+	 */
 	public void tick(){
 		super.tick();
 		if(this.death_activated&&!this.isAnimationActive()){

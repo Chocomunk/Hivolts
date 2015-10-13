@@ -63,7 +63,7 @@ public class GameBoard extends JComponent{
     public void paint(Graphics g) {
     	switch (currState){
     	case PLAYING:
-    		
+
     		g.drawImage(background,0,0,null);
         	for(int x=0; x<12; x++){
         		for(int y=0; y<12; y++){
