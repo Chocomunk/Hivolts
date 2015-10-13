@@ -59,10 +59,10 @@ public class Mho extends Entity{
 		super.die();
 	}
 	
-	public void draw(Graphics g){
-		super.draw(g);
-		g.drawString(this.getIndex()+"", this.getX()*74+35, this.getY()*74+64);
-	}
+//	public void draw(Graphics g){
+//		super.draw(g);
+//		g.drawString(this.getIndex()+"", this.getX()*74+35, this.getY()*74+64);
+//	}
 	
 	public void setIndex(int index){this.index = index;}
 	public int getIndex(){return this.index;}

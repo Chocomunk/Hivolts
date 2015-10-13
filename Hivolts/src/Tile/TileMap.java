@@ -85,7 +85,7 @@ public class TileMap {
 				}
 			}
 		}
-		System.out.println("WE CLEARED");
+//		System.out.println("WE CLEARED");
 		this.player.nextTurn();
 		for(Mho m: mhos){
 			if(m!=null){
