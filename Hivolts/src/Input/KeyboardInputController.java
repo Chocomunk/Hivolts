@@ -47,8 +47,8 @@ public class KeyboardInputController extends KeyAdapter{
 	}
 	
 	public void resetDir(){this.setDirection(movement.NULL);}
-	
 	public void setDirection(movement dir){this.currDirection = dir;}
+	
 	public movement getDirection(){return this.currDirection;}
 	
 }

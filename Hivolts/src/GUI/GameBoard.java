@@ -31,6 +31,7 @@ public class GameBoard extends JComponent{
     void init(){
     	map = new TileMap(12,12);
     	map.setBoard(this);
+    	
     	boolean playerOnBoard = false;
     	while(!playerOnBoard){
     		int x = (int) (Math.random()*10)+1;
@@ -53,10 +54,12 @@ public class GameBoard extends JComponent{
         		for(int y=0; y<12; y++){
         			g.setColor(Color.DARK_GRAY);
         			g.fillRect(x*74, y*74, 74, 74);
+        			
         			g.setColor(Color.BLACK);
         			g.drawRect(x*74, y*74, 74, 74);
         		}
         	}
+        	
         	map.draw(g);
         	break;
     	case WIN:
@@ -74,20 +77,17 @@ public class GameBoard extends JComponent{
     	}
     }
     
-    public void Update(){
-    	if(currState == gameState.PLAYING){
-        	map.tick();
-    	}
-    }
+    public void Update(){if(currState == gameState.PLAYING){map.tick();}}
     
     public void passTurn(){
 		map.nextTurn();
 		this.getMap().getBoard().repaint();
     }
 
+	public void Lose(){this.currState=gameState.LOSE;}
+	public void Win(){this.currState=gameState.WIN;}
+	
 	public KeyboardInputController getController() {return kbic;}
 	public Player getPlayer() {return player;}
 	public TileMap getMap() {return map;}
-	public void Lose(){this.currState=gameState.LOSE;}
-	public void Win(){this.currState=gameState.WIN;}
 }

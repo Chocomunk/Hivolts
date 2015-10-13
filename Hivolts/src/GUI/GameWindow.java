@@ -22,9 +22,11 @@ public class GameWindow extends JFrame{
      */
     public GameWindow (KeyboardInputController kbic) {
         init();
+        
         gb = new GameBoard(kbic);
         this.add(gb, BorderLayout.CENTER);
         this.addKeyListener(kbic);
+        
         width = gb.getWidth()+137;
         height = gb.getHeight()+159;
     }

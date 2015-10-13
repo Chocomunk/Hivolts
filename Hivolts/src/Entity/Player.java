@@ -6,27 +6,33 @@ import Tile.Tile;
 
 public class Player extends Entity{
 	
+	//KeyboardInputController of the game, and its direction
 	KeyboardInputController KIC;
 	KeyboardInputController.movement direction;
 	
+	//Whether the death of this player is activated
 	private boolean death_activated = false;
 	
-	public Player(int x, int y){	
-		super(x,y);
-	}
+	public Player(int x, int y){super(x,y);}
 	
 	public void init(){
 		this.KIC = this.getMap().getBoard().getController();
 		resetDir();
 	}
 	
-	void updateDIR(){
-		direction = KIC.getDirection();
-	}
+	void passTurn(){this.getMap().getBoard().passTurn();}
+	public void nextTurn(){resetDir();}
 	
+	void updateDIR(){direction = KIC.getDirection();}
 	void resetDir(){
 		this.direction = KeyboardInputController.movement.NULL;
 		KIC.resetDir();
+	}
+
+	public void die(){this.death_activated = true;}
+	public void activateDeath(){
+		super.die();
+		this.getMap().Lose();
 	}
 	
 	public void jump(){
@@ -47,23 +53,6 @@ public class Player extends Entity{
 		}
 	}
 	
-	public void die(){
-		this.death_activated = true;
-	}
-	
-	public void activateDeath(){
-		super.die();
-		this.getMap().Lose();
-	}
-	
-	void passTurn(){
-		this.getMap().getBoard().passTurn();
-	}
-	
-	public void nextTurn(){
-		resetDir();
-	}
-	
 	public void tick(){
 		super.tick();
 		if(this.death_activated&&!this.isAnimationActive()){
@@ -79,7 +68,6 @@ public class Player extends Entity{
 			
 			if(this.direction != KeyboardInputController.movement.NULL){
 				if(this.direction !=KeyboardInputController.movement.JUMP){
-//					System.out.println("YOLO BOYS WE BACK HERE");
 					switch(this.direction){
 					case UP:
 						if(up)
