@@ -1,90 +1,103 @@
 package Entity;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
-import javax.swing.JOptionPane;
-
 import Input.KeyboardInputController;
 import Tile.Fence;
 import Tile.Tile;
 
 public class Player extends Entity{
 	
+	//KeyboardInputController of the game, and its direction (movement orientation)
 	KeyboardInputController KIC;
 	KeyboardInputController.movement direction;
 	
-	public Player(int x, int y){	
-		super(x,y);
-	}
+	//Whether the death of this player is activated
+	private boolean death_activated = false;
 	
+	/**
+	 * Instantiates an Player
+	 * @param x X-pos on grid
+	 * @param y Y-pos on grid
+	 */
+	public Player(int x, int y){super(x,y);}
+	
+	/**
+	 * Initializes the player
+	 */
 	public void init(){
 		this.KIC = this.getMap().getBoard().getController();
 		resetDir();
 	}
 	
-	void updateDIR(){
-		direction = KIC.getDirection();
-	}
+	//Methods to control the games turns
+	/**Tells the game to move on to the next turn*/
+	void passTurn(){this.getMap().getBoard().passTurn();}
+	/**Called when a new turn occurs*/
+	public void nextTurn(){resetDir();}
 	
+	//Methods to control the Players direction
+	/**Updates the players direction to the KeyboardInputControllers direction*/
+	void updateDIR(){direction = KIC.getDirection();}
+	/**Resets the movement of the KeyBoardController and this player to NULL*/
 	void resetDir(){
-//		System.out.println("dir resetting");
 		this.direction = KeyboardInputController.movement.NULL;
 		KIC.resetDir();
 	}
+
+	//Methods to control the players Death
+	/**Called when the player enters a situation to die
+	 * Activates the possibility to die*/
+	public void die(){this.death_activated = true;}
+	/**Called when Death possibility is achieved and favorable*/
+	public void activateDeath(){
+		super.die();
+		this.getMap().Lose();
+	}
 	
+	/**Governs logic of the players jumping*/
 	public void jump(){
+		//Boolean variable to control the while loop
 		boolean fencePossible = true;
+		
+		//While there is a possibility of a fence on the desired tile, select a new Tile
 		while(fencePossible){
+			//Random values for the new selected Tile
 			int x = (int)((Math.random()*11)+1);
 			int y = (int)((Math.random()*11)+1);
+			
 			if(!(this.getMap().getTile(x,y) instanceof Fence)){
 				fencePossible = false;
 				Tile otherTile = this.getMap().getGrid()[x][y];
-				int p1 = 0,p2 = 0;
-				if(otherTile!=null){p1=otherTile.getX();p2=otherTile.getY();}
-				System.out.println(otherTile+": "+x+","+y+" "+p1+","+p2);
-				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){
-					this.die(); 
-					JOptionPane.showMessageDialog(null, "You Died to mho: "+((Mho)otherTile).getIndex());
-				}else{
-					this.setX(x);
-					this.setY(y);
-					this.resetDir();
-					this.updateScreen();
-				}
+				
+				//If the other tile is a Mho then die
+				if(otherTile instanceof Mho && ((Mho) otherTile).isValid()){this.die();}
+				
+				//Moves the Player, then resets the direction
+				this.setX(x);
+				this.setY(y);
+				this.resetDir();
 			}
 		}
 	}
 	
-	public void die(){
-		super.die();
-		this.getMap().Lose();
-//		this.updateScreen();
-	}
-	
-	void passTurn(){
-		this.getMap().getBoard().passTurn();
-	}
-	
-	public void nextTurn(){
-		resetDir();
-	}
-	
-	public void draw(Graphics g){
-		if(this.isValid()){super.draw(g,Color.GREEN);}
-	}
-	
+	/**
+	 * Called every tick updated
+	 */
 	public void tick(){
-		if(this.isValid()){
-
+		//Calls tick for super (controlls animation)
+		super.tick();
+		//Check whether player can die, if so then die
+		if(this.death_activated&&!this.isAnimationActive()){this.activateDeath();}
+		else if(this.isValid()){
+			
 			updateDIR();
 			
+			//If movement is within grid bounds
 			boolean up = this.getY()>0;
 			boolean down = this.getY()<this.getMap().getGrid()[0].length-1;
 			boolean right = this.getX()<this.getMap().getGrid().length-1;
 			boolean left = this.getX()>0;
 			
+			//Checks the direction, then moves in that direction
 			if(this.direction != KeyboardInputController.movement.NULL){
 				if(this.direction !=KeyboardInputController.movement.JUMP){
 					switch(this.direction){

@@ -2,18 +2,16 @@ package Core;
 
 public class Updater implements Runnable{
 	
-	public Updater(){
-		
-	}
-	
+	/**
+	 * Implemented from Runnable interface, excecuted as part of Thread.
+	 */
 	public void run() {
-		// TODO Auto-generated method
 		try{
+			//Ticks every 16 ms, or about 60fps. Calls Update method in core class.
 			while(true){
 				Hivolts.Update();
 				Thread.sleep(16);
-//				System.out.println("Updating");
 			}
-		}catch(Exception e){System.out.println("I aint Updating cause");e.printStackTrace();}
+		}catch(Exception e){System.out.println("Updater Error: ");e.printStackTrace();}
 	}
 }

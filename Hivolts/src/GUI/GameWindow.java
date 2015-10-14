@@ -22,13 +22,15 @@ public class GameWindow extends JFrame{
      */
     public GameWindow (KeyboardInputController kbic) {
         init();
+        
         gb = new GameBoard(kbic);
         this.add(gb, BorderLayout.CENTER);
         this.addKeyListener(kbic);
+        
         width = gb.getWidth()+137;
         height = gb.getHeight()+159;
     }
- 
+  
     /**
      * sets size of the window with width and height value
      * with a hard-coded value added to height in order to
@@ -38,11 +40,9 @@ public class GameWindow extends JFrame{
         setSize(width, height);
         setBackground(bg);
         repaint();
-//    	System.out.println("Frame size: "+this.getWidth()+" | "+this.getHeight());
     }
     
     public void Update(){
-//		System.out.println("Update window ticked");
     	gb.Update();
     }
 }
