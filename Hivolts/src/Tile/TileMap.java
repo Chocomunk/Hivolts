@@ -7,29 +7,44 @@ import GUI.GameBoard;
 
 public class TileMap {
 	
+	//External objects
 	private GameBoard board;
 	private Player player;
 
+	//Grid objects
 	private Tile[][] grid;
 	private Mho[] mhos = new Mho[12];
 	private Fence[] fences = new Fence[64];
 	
-	public TileMap(Tile[][] map){
-		this.grid = map;
-		initializeMap(map.length, map[0].length);
-	}
-	
+	/**
+	 * Create a TileMap
+	 * @param x x-dimension
+	 * @param y y-dimension
+	 */
 	public TileMap(int x, int y){initializeMap(x,y);}
 	
+	/**
+	 * Generates map objects
+	 * @param x x-dimension of grid
+	 * @param y y-dimension of grid
+	 */
 	void initializeMap(int x, int y){
 		generateFences(x,y);
 		generateMhos(x,y);
 	}
 	
+	/**
+	 * Generates fences, then places them onto the grid
+	 * @param x x-dimension of grid
+	 * @param y y-dimension of grid
+	 */
 	public void generateFences(int x, int y){
+		//Creates an empty grid
 		grid = new Tile[x][y];
+		//Count of wall to create
 		int wall_left = 44;
 		
+		//Create border calls
 		for(int i=0; i<grid.length; i++){
 			for(int j=0; j<grid[i].length; j++){
 				if((i==0 || j==0)||(i==x-1 || j==y-1)){
@@ -41,7 +56,9 @@ public class TileMap {
 			}
 		}
 		
+		//Count of fences to create
 		int fences_left = 20;
+		//Generates 20 fences randomly on the board
 		while(fences_left>0){
 			int rand_x = (int) (Math.random()*grid.length);
 			int rand_y = (int) (Math.random()*grid[0].length);
@@ -54,8 +71,15 @@ public class TileMap {
 		}	
 	}
 	
+	/**
+	 * Generates Mhos, then places them onto the grid
+	 * @param x x-dimension of grid
+	 * @param y y-dimension of grid
+	 */
 	public void generateMhos(int x, int y){
+		//Mhos left to create
 		int mhos_left = mhos.length;
+		//Generates 12 mhos randomly on the board
 		while(mhos_left>0){
 			int rand_x = (int) (Math.random()*grid.length);
 			int rand_y = (int) (Math.random()*grid[0].length);
@@ -70,9 +94,16 @@ public class TileMap {
 		}	
 	}
 
+	/**
+	 * Sets the games state to Lose
+	 */
 	public void Lose(){this.board.Lose();}
 	
+	/**
+	 * Advances the turn for all objects
+	 */
 	public void nextTurn(){
+		//Tries to force Mhos to make a possible move, as sometimes possible moves are missed
 		boolean canMove = true;
 		while(canMove){
 			canMove = false;
@@ -83,7 +114,9 @@ public class TileMap {
 				}
 			}
 		}
+		//Advances Player turn
 		this.player.nextTurn();
+		//Resets movement information for moved Mhos
 		for(Mho m: mhos){
 			if(m!=null){
 				m.resetMoved();
@@ -92,6 +125,10 @@ public class TileMap {
 		}
 	}
 	
+	/**
+	 * Draws all objects on the map
+	 * @param g Graphics object (given in JFrame)
+	 */
 	public void draw(Graphics g){
 		for(Fence f: fences){f.draw(g);}
 		for(int i=0; i<mhos.length; i++){
@@ -100,11 +137,17 @@ public class TileMap {
 		player.draw(g);
 	}
 	
+	/**
+	 * Called every tick
+	 */
 	public void tick(){
+		//Checks for a win state (all Mhos dead)
 		boolean mhos_exist = false;
 		for(Mho m: mhos){if(m.isValid()){mhos_exist=true;}}
 		
+		//If win state achieved then set the gamestate to a Win
 		if(!mhos_exist){this.board.Win(); this.board.repaint();}
+		//Otherwise, tick all tiles on the grid
 		else{
 			for(Tile[] i: grid){
 				for(Tile t: i){
@@ -115,20 +158,41 @@ public class TileMap {
 			}
 		}
 		
+		//Tick the player
 		player.tick();
 	}
 	
+	//Setters
+	/**Sets the Tile at a position on the grid
+	 * @param x x-position
+	 * @param y y-position
+	 * @param t New tile*/
 	public void setTile(int x, int y, Tile t){grid[x][y] = t;}
-	public void setTile(Tile orig, Tile repl){grid[orig.getX()][orig.getY()] = repl;}
+	/**Deletes a tile on the grid
+	 * @param x x-position
+	 * @param y y-position*/
 	public void delTile(int x, int y){grid[x][y] = null;}
+	/**Deletes the player from the map*/
 	public void delPlayer(){this.player = null;}
+	/**Deletes an Mho
+	 * @param index Index of the Mho*/
 	public void delMho(int index){mhos[index] = null;}
+	/**Sets the player of the map
+	 * @param p Player*/
 	public void setPlayer(Player p){this.player = p;}
+	/**Sets the GameBoard
+	 * @param b GameBoard*/
 	public void setBoard(GameBoard b){this.board = b;}
 	
+	//Getters
+	/**@return The tile at position (x,y)*/
 	public Tile getTile(int x, int y){return grid[x][y];}
+	/**@return The grid of the TileMap*/
 	public Tile[][] getGrid(){return this.grid;}
+	/**@return The list of Mhos*/
 	public Mho[] getMhos(){return this.mhos;}
+	/**@return The GameBoard*/
 	public GameBoard getBoard(){return this.board;}
+	/**@return The Player*/
 	public Player getPlayer(){return this.player;}
 }

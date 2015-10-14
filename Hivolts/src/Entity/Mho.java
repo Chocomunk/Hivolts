@@ -23,6 +23,9 @@ public class Mho extends Entity{
 	 */
 	public void nextTurn(){CalcMove();}
 	
+	/**
+	 * Calculates and executes decision making and movement based on given instruction
+	 */
 	private void CalcMove(){
 		if(this.isValid()&&this.getMap().getPlayer().isValid()){
 			//Stores x and y pos of the player
@@ -78,11 +81,11 @@ public class Mho extends Entity{
 	public void resetTimes(){this.moveTimes=0;}
 	
 	//Getters
-	/**Returns the index of this Mho*/
+	/**@return The index of this Mho*/
 	public int getIndex(){return this.index;}
-	/**Returns the times this Mho has tried to move*/
+	/**@return The times this Mho has tried to move*/
 	public int getMoveTimes(){return this.moveTimes;}
-	/**Returns whether this Mho has moved*/
+	/**@return Whether this Mho has moved*/
 	public boolean hasMoved(){return this.moved;}
 }
 

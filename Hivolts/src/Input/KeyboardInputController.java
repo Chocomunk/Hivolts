@@ -5,10 +5,14 @@ import java.awt.event.KeyEvent;
 
 public class KeyboardInputController extends KeyAdapter{
 	
+	//Variables to control the current direction of movement
+	/**Defines possible directions of movement*/
 	public enum movement {UP, DOWN, RIGHT, LEFT, UP_RIGHT, UP_LEFT, DOWN_RIGHT, DOWN_LEFT, SIT, JUMP, NULL};
+	private movement currDirection = movement.SIT;
 	
-	movement currDirection = movement.SIT;
-	
+	/**
+	 * Called when a key is released, changes direction of motion based on the key
+	 */
 	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 		
@@ -46,9 +50,13 @@ public class KeyboardInputController extends KeyAdapter{
 		}
 	}
 	
+	//Controls the direction of motion
+	/**Resets the direction to NULL, meaning no direction*/
 	public void resetDir(){this.setDirection(movement.NULL);}
+	/**Sets the direction to a given direction*/
 	public void setDirection(movement dir){this.currDirection = dir;}
 	
+	/**@return The current direction of motion*/
 	public movement getDirection(){return this.currDirection;}
 	
 }

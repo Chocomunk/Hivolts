@@ -82,6 +82,7 @@ public class Player extends Entity{
 	/**
 	 * Called every tick updated
 	 */
+	@SuppressWarnings("incomplete-switch")
 	public void tick(){
 		//Calls tick for super (controlls animation)
 		super.tick();

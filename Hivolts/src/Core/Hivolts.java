@@ -5,7 +5,7 @@ import Input.KeyboardInputController;
 
 public class Hivolts {
 
-	//Initializes the KeyboardInputController and GameWindow to be used in the game.
+	//Initializes the static Attributes
 	static KeyboardInputController kbic = new KeyboardInputController();
 	static GameWindow gw = new GameWindow(kbic);
 	

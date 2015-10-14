@@ -6,42 +6,43 @@ import javax.swing.JFrame;
 
 import Input.KeyboardInputController;
 
+@SuppressWarnings("serial")
 public class GameWindow extends JFrame{
 
     //Background
     private final Color bg = Color.BLACK;
     final GameBoard gb;
  
-    //Scale of program
-    int width = 768+137;
-    int height = 768+159;
+    //Size of program, hardcoded values to fit components better
+    int width = 768+127;
+    int height = 768+149;
      
     /**
-     * Creates a FlagFrame with a FlagComponent
+     * Creates a window to host the game in, and adds the KeyboardInputController
      * @param kbic 
      */
     public GameWindow (KeyboardInputController kbic) {
+    	super("Hivolts: A remake by Edan Sneh, Frederic Maa, and Alvin On");
         init();
         
         gb = new GameBoard(kbic);
         this.add(gb, BorderLayout.CENTER);
         this.addKeyListener(kbic);
-        
-        width = gb.getWidth()+137;
-        height = gb.getHeight()+159;
     }
   
     /**
-     * sets size of the window with width and height value
-     * with a hard-coded value added to height in order to
-     * fit the flag to the screen better at the start
+     * Sets options for the window
      */
     public void init() {
         setSize(width, height);
         setBackground(bg);
+        setResizable(false);
         repaint();
     }
     
+    /**
+     * Called every tick, updates all objects on local gameboard
+     */
     public void Update(){
     	gb.Update();
     }
