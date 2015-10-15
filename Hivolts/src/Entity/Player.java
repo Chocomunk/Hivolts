@@ -4,6 +4,13 @@ import Input.KeyboardInputController;
 import Tile.Fence;
 import Tile.Tile;
 
+/**
+ * Represents a Player gameobject in Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see Entity
+ */
 public class Player extends Entity{
 	
 	//KeyboardInputController of the game, and its direction (movement orientation)

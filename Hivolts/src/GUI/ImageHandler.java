@@ -12,6 +12,12 @@ import Entity.Player;
 import Tile.Fence;
 import Tile.Tile;
 
+/**
+ * Handles images of one object
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class ImageHandler {
 
 	//Image of this object

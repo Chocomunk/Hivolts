@@ -5,6 +5,12 @@ import Entity.Mho;
 import Entity.Player;
 import GUI.GameBoard;
 
+/**
+ * Virtual representation of game grid
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class TileMap {
 	
 	//External objects

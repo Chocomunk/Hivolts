@@ -2,6 +2,13 @@ package Entity;
 
 import Tile.Fence;
 
+/**
+ * Represents an Mho gameobject in Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see Entity
+ */
 public class Mho extends Entity{
 	//Index of this Mho, Used to track this Mho
 	private int index;

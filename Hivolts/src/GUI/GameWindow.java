@@ -6,6 +6,13 @@ import javax.swing.JFrame;
 
 import Input.KeyboardInputController;
 
+/**
+ * Holds and manages all graphical objects/settings
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see JFrame
+ */
 @SuppressWarnings("serial")
 public class GameWindow extends JFrame{
 

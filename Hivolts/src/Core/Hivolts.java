@@ -3,6 +3,12 @@ package Core;
 import GUI.GameWindow;
 import Input.KeyboardInputController;
 
+/**
+ * Core class of the program, executes Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class Hivolts {
 
 	//Initializes the static Attributes

@@ -5,6 +5,12 @@ import java.awt.Graphics;
 import GUI.ImageHandler;
 import GUI.ImageType;
 
+/**
+ * Represents a Button on the screen
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class Button{
 	
 	//UI for button

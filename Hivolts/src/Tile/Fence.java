@@ -1,5 +1,12 @@
 package Tile;
 
+/**
+ * Represents a fence object in Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see Tile
+ */
 public class Fence extends Tile{
 	//Creates a Fence, not super fancy because fences don't do anything
 	/**

@@ -5,6 +5,12 @@ import java.awt.Graphics;
 import Entity.Entity;
 import GUI.ImageHandler;
 
+/**
+ * Represents any Tile object on the grid in Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class Tile {
 
 	//Variables to control dimension and position

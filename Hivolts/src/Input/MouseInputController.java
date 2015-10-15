@@ -5,6 +5,13 @@ import java.awt.event.MouseListener;
 
 import GUI.GameBoard;
 
+/**
+ * Manages Mouse Input in the entire game
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see MouseListener
+ */
 public class MouseInputController implements MouseListener{
 
 	//Tells whether the mouse is being held down

@@ -1,5 +1,11 @@
 package GUI;
 
+/**
+ * Determines the type of image of an object
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public enum ImageType {
 	//All visible object types + string locations
 	MHO("res/mho.png"),
