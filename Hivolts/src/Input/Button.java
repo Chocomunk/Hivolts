@@ -12,7 +12,7 @@ public class Button{
 	private MouseInputController mic;
 	
 	//Position variables
-	private int posx,posy;
+	private int posx,posy,width,height;
 	
 	//Button state variables
 	private boolean hovering;
@@ -28,6 +28,8 @@ public class Button{
 		this.posx = x;
 		this.posy = y;
 		imgh = new ImageHandler(ImageType.PLAYER);
+		width = imgh.getImage().getWidth();
+		height = imgh.getImage().getHeight();
 		reset();
 	}
 	
@@ -38,6 +40,7 @@ public class Button{
 		hovering = false;
 		holding = false;
 		valid = false;
+		setNone();
 	}
 	
 	/**
@@ -47,7 +50,7 @@ public class Button{
 	 * @return Whether mouse is over this button
 	 */
 	public boolean isOver(int x, int y){
-		if(valid && (x>posx&&x<posx+64)&&(y>posy&&y<posy+64)){
+		if(valid && (x>posx&&x<posx+width)&&(y>posy&&y<posy+height)){
 			return true;
 		}else{
 			return false;
