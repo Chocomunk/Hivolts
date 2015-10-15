@@ -3,6 +3,7 @@ package Tile;
 import java.awt.Graphics;
 
 import Entity.Entity;
+import Entity.Player;
 import GUI.ImageHandler;
 
 /**
@@ -15,6 +16,7 @@ public class Tile {
 
 	//Variables to control dimension and position
 	private int x,y,width,height,old_x,old_y,new_x,new_y;
+	private double theta;
 	
 	//Objects needed to refer to and access behaviors
 	private TileMap map;
@@ -77,6 +79,14 @@ public class Tile {
 	public void setCoords(){
 		this.new_x=this.x*74+5;
 		this.new_y=this.y*74+5;
+		
+		double opp = this.new_y-this.old_y;
+		double adj = this.new_x-this.old_x;
+		
+		double hyp = Math.sqrt((opp*opp)+(adj*adj));
+		
+		this.theta = Math.asin(opp/hyp);
+		if(this instanceof Player){System.out.println(theta);}
 	}
 	
 	/**
@@ -127,9 +137,9 @@ public class Tile {
 			animation_active = true;
 			
 			if(Math.abs(new_x-old_x)<6){old_x=new_x;}
-			else{old_x-=6*normalize(old_x-new_x);}
+			else{old_x+=6*normalize(new_x-old_x)*Math.cos(theta);}
 			if(Math.abs(new_y-old_y)<6){old_y=new_y;}
-			else{old_y-=6*normalize(old_y-new_y);}
+			else{old_y+=6*normalize(new_y-old_y)*Math.sin(theta);}
 			
 		}else{animation_active = false;}
 	}
