@@ -43,7 +43,7 @@ public class GameWindow extends JFrame{
     public void init() {
         setSize(width, height);
         setBackground(bg);
-        setResizable(false);
+//        setResizable(false);
         repaint();
     }
     

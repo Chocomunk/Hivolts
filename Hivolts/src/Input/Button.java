@@ -48,20 +48,28 @@ public class Button{
 		valid = false;
 		setNone();
 	}
-	
+
+	/**
+	 * Decides whether the mouse is hovering over this button
+	 * @param x mouse pos-x
+	 * @param y mouse pos-y
+	 * @param scale Scale ratio of the object
+	 * @return Whether mouse is over this button
+	 */
+	public boolean isOver(int x, int y, double scale){
+		if(valid && (x>posx*scale&&x<posx*scale+width*scale)&&(y>posy*scale&&y<posy*scale+height*scale)){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	/**
 	 * Decides whether the mouse is hovering over this button
 	 * @param x mouse pos-x
 	 * @param y mouse pos-y
 	 * @return Whether mouse is over this button
 	 */
-	public boolean isOver(int x, int y){
-		if(valid && (x>posx&&x<posx+width)&&(y>posy&&y<posy+height)){
-			return true;
-		}else{
-			return false;
-		}
-	}
+	public boolean isOver(int x, int y){return this.isOver(x, y, 1);}
 	
 	/**
 	 * Sets the state of this button to hover
@@ -98,15 +106,18 @@ public class Button{
 	/**
 	 * Draws the button using images
 	 * @param g Graphics (given in JFrame)
+	 * @param scale Scale ratio of the object
 	 */
-	public void draw(Graphics g){imgh.draw(g, posx, posy);}
+	public void draw(Graphics g, double scale){imgh.draw(g, posx, posy, scale);}
 	
 	/**
 	 * Called every tick, compares position of button and mouse
 	 * @param posx x-pos of mouse
 	 * @param posy y-pos of mouse
 	 */
-	public void tick(int posx, int posy){
+	public void tick(int posx, int posy, double scale){
+		posx*=scale;
+		posy*=scale;
 		if(valid){
 			if(!this.isHovering()&&this.isOver(posx, posy)){
 				this.setHover();

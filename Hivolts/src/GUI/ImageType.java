@@ -12,7 +12,7 @@ public enum ImageType {
 	PLAYER("res/player.png"),
 	FENCE("res/fence.png"),
 	BG("res/background.png"),
-	WIN("res/background.png"),
+	WIN("res/win.png"),
 	LOSE("res/background.png"),
 	NULL("");
 	
