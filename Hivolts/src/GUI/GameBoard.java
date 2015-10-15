@@ -2,22 +2,27 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 
 import javax.swing.JComponent;
 
 import Entity.Player;
+import Input.Button;
 import Input.KeyboardInputController;
+import Input.MouseInputController;
 import Tile.Tile;
 import Tile.TileMap;
 
 @SuppressWarnings("serial")
 public class GameBoard extends JComponent{
-
+	
 	//Declares game aspects, and UI handlers
 	private KeyboardInputController kbic;
+	private MouseInputController mic;
 	private ImageHandler imgh;
 	private Player player;
 	private TileMap map;
+	private Button b;
 	
 	//Controls the state of the game
 	public enum gameState {WIN, LOSE, PLAYING};
@@ -30,7 +35,6 @@ public class GameBoard extends JComponent{
     public GameBoard(KeyboardInputController kbic){
     	this.kbic = kbic;
     	init();
-        repaint();
     }
     
     /**
@@ -38,10 +42,26 @@ public class GameBoard extends JComponent{
      */
     void init(){
     	this.imgh = new ImageHandler(ImageType.BG);
-    	
+    	this.mic = new MouseInputController(this);
+    	this.addMouseListener(mic);
+
+		b = new Button(333,600); 
+		b.setMIC(mic);
+		
+		reset();
+    }
+    
+    /**
+     * Resets the game to a initial state
+     */
+    void reset(){
+		b.setInvalid();
+		
+		imgh.updateImage(ImageType.BG);
+		
     	map = new TileMap(12,12);
     	map.setBoard(this);
-    	
+		
     	boolean playerOnBoard = false;
     	while(!playerOnBoard){
     		int x = (int) (Math.random()*10)+1;
@@ -58,7 +78,7 @@ public class GameBoard extends JComponent{
     }
     
     /**
-     * Called every tick, draws the background, visual grid, then game objects
+     * Called every tick, draws the background, visual grid, then game objects and buttons
      */
     public void paint(Graphics g) {
     	this.imgh.draw(g, 0, 0);
@@ -76,29 +96,73 @@ public class GameBoard extends JComponent{
         	}
         	map.draw(g);
     	}else{
-    		
+    		b.draw(g);
     	}
     }
-    
+
+	/**
+	 * Called when mouse is clicked on screen
+	 * @param x x-position of mouse
+	 * @param y y-position of mouse
+	 */
+	public void clicked(int x, int y){
+		if(b.isOver(x, y)){
+			newGame();
+		}
+	}
+	
     /**
-     * Called every tick, if the game is playing, then update all objects
+     * Called every tick
      */
-    public void Update(){if(currState == gameState.PLAYING){map.tick();}}
+    public void Update(){
+    	if(currState == gameState.PLAYING){
+    		map.tick();
+    	}else{
+    		b.tick(MouseInfo.getPointerInfo().getLocation().x-this.getLocationOnScreen().x, 
+    				MouseInfo.getPointerInfo().getLocation().y-this.getLocationOnScreen().y);
+    	}
+    }
     
     /**
      * Passes the turn for all game objects
      */
     public void passTurn(){map.nextTurn(); }
-
+    
+	/**
+	 * Resets and starts a new game
+	 */
+	public void newGame(){this.Play();}
+    
     //Gamestate mutators
-    /**Sets the gamestate to Lose*/
-	public void Lose(){this.currState=gameState.LOSE;this.imgh.updateImage(ImageType.LOSE);}
-	/**Sets the gamestate to Win*/
-	public void Win(){this.currState=gameState.WIN;this.imgh.updateImage(ImageType.WIN);}
+    /**
+     * Sets gamsetate to Playing
+     */
+    public void Play(){
+		System.out.println(currState);
+    	this.currState=gameState.PLAYING;
+		System.out.println(currState);
+    	reset();
+    }
+    /**
+     * Sets the gamestate to Lose
+     * */
+	public void Lose(){
+		this.currState=gameState.LOSE;
+		this.imgh.updateImage(ImageType.LOSE);
+		b.setValid();
+	}
+	/**
+	 * Sets the gamestate to Win
+	 * */
+	public void Win(){
+		this.currState=gameState.WIN;
+		this.imgh.updateImage(ImageType.WIN);
+		b.setValid();
+	}
 	
 	//Accessors
 	/**@return The KeyboardInputController used throughout the program*/
-	public KeyboardInputController getController() {return kbic;}
+	public KeyboardInputController getKeyboardController() {return kbic;}
 	/**@return The sole player object of the program*/
 	public Player getPlayer() {return player;}
 	/**@return The sole map object of the program*/

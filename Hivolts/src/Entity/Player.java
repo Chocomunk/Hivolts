@@ -24,7 +24,7 @@ public class Player extends Entity{
 	 * Initializes the player
 	 */
 	public void init(){
-		this.KIC = this.getMap().getBoard().getController();
+		this.KIC = this.getMap().getBoard().getKeyboardController();
 		resetDir();
 	}
 	

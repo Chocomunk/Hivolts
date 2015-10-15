@@ -13,6 +13,7 @@ public class Hivolts {
 	 * Called on running the program, executes the game code.
 	 * @param args
 	 */
+	@SuppressWarnings("static-access")
 	public static void main(String[] args){
 		//Creates a new Updater thread from the Updater class, then starts it.
 		Thread updater = new Thread(new Updater());

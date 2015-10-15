@@ -16,6 +16,7 @@ public class ImageHandler {
 
 	//Image of this object
 	private BufferedImage img;
+	private String location;
 	
 	//Type of visible object
 	private ImageType type = ImageType.NULL;
@@ -55,6 +56,7 @@ public class ImageHandler {
 	 */
 	private void setImage(ImageType t){
 		try {
+			this.location = t.getLcoation();
 			this.img = ImageIO.read(new File(t.getLcoation()));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,4 +81,10 @@ public class ImageHandler {
 	public void draw(Graphics g, int x, int y){
 		g.drawImage(img,x,y,null);
 	}
+	
+	//Getters
+	/**@return The location of the image*/
+	public String getLcoation(){return this.location;}
+	/**@return The image*/
+	public BufferedImage getImage(){return this.img;}
 }
