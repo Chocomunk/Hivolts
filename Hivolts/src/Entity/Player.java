@@ -88,7 +88,7 @@ public class Player extends Entity{
 		super.tick();
 		//Check whether player can die, if so then die
 		if(this.death_activated&&!this.isAnimationActive()){this.activateDeath();}
-		else if(this.isValid()){
+		else if(this.isValid()&&!this.isAnimationActive()){
 			
 			updateDIR();
 			
