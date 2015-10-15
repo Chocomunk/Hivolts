@@ -145,9 +145,7 @@ public class GameBoard extends JComponent{
      * Sets gamsetate to Playing
      */
     public void Play(){
-		System.out.println(currState);
     	this.currState=gameState.PLAYING;
-		System.out.println(currState);
     	reset();
     }
     /**
