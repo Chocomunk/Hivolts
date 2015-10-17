@@ -97,7 +97,7 @@ public class GameBoard extends JComponent{
     	scale = (this.getWidth()<this.getHeight()?this.getWidth():this.getHeight());
     	scale/=888;
     	
-    	this.imgh.draw(g, 0, 0, scale);
+    	this.imgh.draw(g, 0, 0, 1);
     	
     	//Only draw game objects if we are playing
     	if(this.currState==gameState.PLAYING){

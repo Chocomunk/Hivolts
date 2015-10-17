@@ -33,7 +33,7 @@ public class Button{
 	public Button(int x, int y){
 		this.posx = x;
 		this.posy = y;
-		imgh = new ImageHandler(ImageType.PLAYER);
+		imgh = new ImageHandler(ImageType.PBUTT);
 		width = imgh.getImage().getWidth();
 		height = imgh.getImage().getHeight();
 		reset();
@@ -75,7 +75,7 @@ public class Button{
 	 * Sets the state of this button to hover
 	 */
 	public void setHover(){
-		imgh.updateImage(ImageType.MHO);
+		imgh.updateImage(ImageType.PBUTT_HV);
 		this.hovering = true;
 	}
 	
@@ -83,7 +83,7 @@ public class Button{
 	 * Sets this button to an empty state
 	 */
 	public void setNone(){
-		imgh.updateImage(ImageType.PLAYER);
+		imgh.updateImage(ImageType.PBUTT);
 		this.hovering = false;
 	}
 	
@@ -91,7 +91,7 @@ public class Button{
 	 * Sets the state of this button to hold
 	 */
 	public void setHold(){
-		imgh.updateImage(ImageType.FENCE);
+		imgh.updateImage(ImageType.PBUTT_HD);
 		this.holding = true;
 	}
 	
@@ -99,7 +99,7 @@ public class Button{
 	 * Undo the hopld state
 	 */
 	public void setRelease(){
-		imgh.updateImage(ImageType.PLAYER);
+		imgh.updateImage(ImageType.PBUTT);
 		this.holding = false;
 	}
 	

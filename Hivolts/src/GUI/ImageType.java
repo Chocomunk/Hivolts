@@ -13,7 +13,10 @@ public enum ImageType {
 	FENCE("res/fence.png"),
 	BG("res/background.png"),
 	WIN("res/win.png"),
-	LOSE("res/background.png"),
+	LOSE("res/lose.png"),
+	PBUTT("res/play_again.png"),
+	PBUTT_HV("res/play_again_hv.png"),
+	PBUTT_HD("res/play_again_hv.png"),
 	NULL("");
 	
 	//Location of image file for this type
