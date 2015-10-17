@@ -12,6 +12,12 @@ import Entity.Player;
 import Tile.Fence;
 import Tile.Tile;
 
+/**
+ * Handles images of one object
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class ImageHandler {
 
 	//Image of this object
@@ -77,9 +83,10 @@ public class ImageHandler {
 	 * @param g Graphics object (given in JFrame)
 	 * @param x x-Position on screen
 	 * @param y y-Position on screen
+	 * @param scale Scale ratio of the object
 	 */
-	public void draw(Graphics g, int x, int y){
-		g.drawImage(img,x,y,null);
+	public void draw(Graphics g, int x, int y, double scale){
+		g.drawImage(img,(int)(x*scale),(int)(y*scale),(int)(this.img.getWidth()*scale),(int)(this.img.getHeight()*scale),null);
 	}
 	
 	//Getters

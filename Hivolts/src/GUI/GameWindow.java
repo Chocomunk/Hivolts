@@ -6,6 +6,13 @@ import javax.swing.JFrame;
 
 import Input.KeyboardInputController;
 
+/**
+ * Holds and manages all graphical objects/settings
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see JFrame
+ */
 @SuppressWarnings("serial")
 public class GameWindow extends JFrame{
 
@@ -36,7 +43,7 @@ public class GameWindow extends JFrame{
     public void init() {
         setSize(width, height);
         setBackground(bg);
-        setResizable(false);
+//        setResizable(false);
         repaint();
     }
     

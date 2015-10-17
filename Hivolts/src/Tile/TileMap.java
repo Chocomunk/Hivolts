@@ -5,6 +5,12 @@ import Entity.Mho;
 import Entity.Player;
 import GUI.GameBoard;
 
+/**
+ * Virtual representation of game grid
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class TileMap {
 	
 	//External objects
@@ -128,13 +134,14 @@ public class TileMap {
 	/**
 	 * Draws all objects on the map
 	 * @param g Graphics object (given in JFrame)
+	 * @param scale Scale ratio of the object
 	 */
-	public void draw(Graphics g){
-		for(Fence f: fences){f.draw(g);}
+	public void draw(Graphics g, double scale){
+		for(Fence f: fences){f.draw(g,scale);}
 		for(int i=0; i<mhos.length; i++){
-			if(mhos[i].isValid()){mhos[i].draw(g);}
+			if(mhos[i].isValid()){mhos[i].draw(g,scale);}
 		}
-		player.draw(g);
+		player.draw(g,scale);
 	}
 	
 	/**

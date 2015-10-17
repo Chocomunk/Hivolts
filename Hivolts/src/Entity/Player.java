@@ -4,6 +4,13 @@ import Input.KeyboardInputController;
 import Tile.Fence;
 import Tile.Tile;
 
+/**
+ * Represents a Player gameobject in Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see Entity
+ */
 public class Player extends Entity{
 	
 	//KeyboardInputController of the game, and its direction (movement orientation)
@@ -88,7 +95,7 @@ public class Player extends Entity{
 		super.tick();
 		//Check whether player can die, if so then die
 		if(this.death_activated&&!this.isAnimationActive()){this.activateDeath();}
-		else if(this.isValid()){
+		else if(this.isValid()&&!this.isAnimationActive()){
 			
 			updateDIR();
 			

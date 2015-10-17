@@ -13,6 +13,13 @@ import Input.MouseInputController;
 import Tile.Tile;
 import Tile.TileMap;
 
+/**
+ * Holds and manages all gameobjects
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see JComponent
+ */
 @SuppressWarnings("serial")
 public class GameBoard extends JComponent{
 	
@@ -22,11 +29,15 @@ public class GameBoard extends JComponent{
 	private ImageHandler imgh;
 	private Player player;
 	private TileMap map;
-	private Button b;
+	private Button playAgainButt;
 	
 	//Controls the state of the game
 	public enum gameState {WIN, LOSE, PLAYING};
 	private gameState currState = gameState.PLAYING;
+	
+	
+	//Scale of the game
+	private double scale;
 	
     /**
      * Initializes component and variables
@@ -41,12 +52,13 @@ public class GameBoard extends JComponent{
      * Sets up Objects required for the game, and their initial state
      */
     void init(){
+    	scale = 1;
     	this.imgh = new ImageHandler(ImageType.BG);
     	this.mic = new MouseInputController(this);
     	this.addMouseListener(mic);
 
-		b = new Button(333,600); 
-		b.setMIC(mic);
+		playAgainButt = new Button(333,600); 
+		playAgainButt.setMIC(mic);
 		
 		reset();
     }
@@ -55,7 +67,7 @@ public class GameBoard extends JComponent{
      * Resets the game to a initial state
      */
     void reset(){
-		b.setInvalid();
+		playAgainButt.setInvalid();
 		
 		imgh.updateImage(ImageType.BG);
 		
@@ -81,7 +93,11 @@ public class GameBoard extends JComponent{
      * Called every tick, draws the background, visual grid, then game objects and buttons
      */
     public void paint(Graphics g) {
-    	this.imgh.draw(g, 0, 0);
+    	
+    	scale = (this.getWidth()<this.getHeight()?this.getWidth():this.getHeight());
+    	scale/=888;
+    	
+    	this.imgh.draw(g, 0, 0, scale);
     	
     	//Only draw game objects if we are playing
     	if(this.currState==gameState.PLAYING){
@@ -91,12 +107,12 @@ public class GameBoard extends JComponent{
 //        			g.fillRect(x*74, y*74, 74, 74);
         			
         			g.setColor(Color.BLACK);
-        			g.drawRect(x*74, y*74, 74, 74);
+        			g.drawRect((int)(x*74*scale), (int)(y*74*scale), (int)(74*scale), (int)(74*scale));
         		}
         	}
-        	map.draw(g);
+        	map.draw(g,scale);
     	}else{
-    		b.draw(g);
+    		playAgainButt.draw(g,scale);
     	}
     }
 
@@ -106,7 +122,7 @@ public class GameBoard extends JComponent{
 	 * @param y y-position of mouse
 	 */
 	public void clicked(int x, int y){
-		if(b.isOver(x, y)){
+		if(playAgainButt.isOver(x, y,scale)){
 			newGame();
 		}
 	}
@@ -118,8 +134,9 @@ public class GameBoard extends JComponent{
     	if(currState == gameState.PLAYING){
     		map.tick();
     	}else{
-    		b.tick(MouseInfo.getPointerInfo().getLocation().x-this.getLocationOnScreen().x, 
-    				MouseInfo.getPointerInfo().getLocation().y-this.getLocationOnScreen().y);
+    		playAgainButt.tick(MouseInfo.getPointerInfo().getLocation().x-this.getLocationOnScreen().x, 
+    				MouseInfo.getPointerInfo().getLocation().y-this.getLocationOnScreen().y,
+    				scale);
     	}
     }
     
@@ -138,9 +155,7 @@ public class GameBoard extends JComponent{
      * Sets gamsetate to Playing
      */
     public void Play(){
-		System.out.println(currState);
     	this.currState=gameState.PLAYING;
-		System.out.println(currState);
     	reset();
     }
     /**
@@ -149,7 +164,7 @@ public class GameBoard extends JComponent{
 	public void Lose(){
 		this.currState=gameState.LOSE;
 		this.imgh.updateImage(ImageType.LOSE);
-		b.setValid();
+		playAgainButt.setValid();
 	}
 	/**
 	 * Sets the gamestate to Win
@@ -157,7 +172,7 @@ public class GameBoard extends JComponent{
 	public void Win(){
 		this.currState=gameState.WIN;
 		this.imgh.updateImage(ImageType.WIN);
-		b.setValid();
+		playAgainButt.setValid();
 	}
 	
 	//Accessors
@@ -167,4 +182,6 @@ public class GameBoard extends JComponent{
 	public Player getPlayer() {return player;}
 	/**@return The sole map object of the program*/
 	public TileMap getMap() {return map;}
+	/**@return The scale of the program*/
+	public double getScale() {return scale;}
 }

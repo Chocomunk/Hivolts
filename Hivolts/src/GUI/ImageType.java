@@ -1,12 +1,18 @@
 package GUI;
 
+/**
+ * Determines the type of image of an object
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public enum ImageType {
 	//All visible object types + string locations
 	MHO("res/mho.png"),
 	PLAYER("res/player.png"),
 	FENCE("res/fence.png"),
 	BG("res/background.png"),
-	WIN("res/background.png"),
+	WIN("res/win.png"),
 	LOSE("res/background.png"),
 	NULL("");
 	

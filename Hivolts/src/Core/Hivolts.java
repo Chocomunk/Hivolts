@@ -3,6 +3,13 @@ package Core;
 import GUI.GameWindow;
 import Input.KeyboardInputController;
 
+/**
+ * <h1>Hivolts: A remake by Edan Sneh, Frederic Maa, and Alvin On</h1>
+ * Core class of the program, executes Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class Hivolts {
 
 	//Initializes the static Attributes

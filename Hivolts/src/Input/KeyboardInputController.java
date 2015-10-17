@@ -3,6 +3,13 @@ package Input;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * Manages keypresses in the entire game
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ * @see KeyAdapter
+ */
 public class KeyboardInputController extends KeyAdapter{
 	
 	//Variables to control the current direction of movement

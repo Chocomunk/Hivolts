@@ -1,3 +1,4 @@
+
 package Tile;
 
 import java.awt.Graphics;
@@ -5,10 +6,17 @@ import java.awt.Graphics;
 import Entity.Entity;
 import GUI.ImageHandler;
 
+/**
+ * Represents any Tile object on the grid in Hivolts
+ * @author Alvin On
+ * @author Edan Sneh
+ * @author Frederic Maa
+ */
 public class Tile {
 
 	//Variables to control dimension and position
-	private int x,y,width,height,old_x,old_y,new_x,new_y;
+	private int x,y,width,height;
+	private double ratioy,ratiox,old_x,old_y,new_x,new_y;
 	
 	//Objects needed to refer to and access behaviors
 	private TileMap map;
@@ -52,18 +60,20 @@ public class Tile {
 	 * @param g Graphics object (given in JFrame)
 	 * @param x x-position on screen
 	 * @param y y-position on screen
+	 * @param scale Scale ratio of the object
 	 */
-	public void draw(Graphics g, int x, int y){
+	public void draw(Graphics g, int x, int y, double scale){
 		if(this.isValid()){
 			//If this object is of type fence, undo padding
 			if(this instanceof Fence){x-=5;y-=5;}
-			imgh.draw(g,x,y);
+			imgh.draw(g,x,y,scale);
 		}
 	}
 	
 	/**Draws Tile based on information stored in Tile
-	 * @param g Graphics object (given in JFrame)*/
-	public void draw(Graphics g){this.draw(g,old_x,old_y);}
+	 * @param g Graphics object (given in JFrame)
+	 * @param scale Scale ratio of the object*/
+	public void draw(Graphics g, double scale){this.draw(g,(int)old_x,(int)old_y, scale);}
 	
 	/**
 	 * Sets the coordinates of this tile on the screen based on its position on the grid
@@ -71,6 +81,13 @@ public class Tile {
 	public void setCoords(){
 		this.new_x=this.x*74+5;
 		this.new_y=this.y*74+5;
+		
+		double ly = this.new_y-this.old_y;
+		double lx = this.new_x-this.old_x;
+		double len = Math.abs(ly)>Math.abs(lx) ? Math.abs(ly):Math.abs(lx);
+		
+		ratiox = lx/len;
+		ratioy = ly/len;
 	}
 	
 	/**
@@ -121,9 +138,9 @@ public class Tile {
 			animation_active = true;
 			
 			if(Math.abs(new_x-old_x)<6){old_x=new_x;}
-			else{old_x-=6*normalize(old_x-new_x);}
+			else{old_x+=6*ratiox;}
 			if(Math.abs(new_y-old_y)<6){old_y=new_y;}
-			else{old_y-=6*normalize(old_y-new_y);}
+			else{old_y+=6*ratioy;}
 			
 		}else{animation_active = false;}
 	}
