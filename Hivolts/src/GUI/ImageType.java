@@ -16,7 +16,7 @@ public enum ImageType {
 	LOSE("res/lose.png"),
 	PBUTT("res/play_again.png"),
 	PBUTT_HV("res/play_again_hv.png"),
-	PBUTT_HD("res/play_again_hv.png"),
+	PBUTT_HD("res/play_again_hd.png"),
 	NULL("");
 	
 	//Location of image file for this type

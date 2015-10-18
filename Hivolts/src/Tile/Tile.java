@@ -61,26 +61,27 @@ public class Tile {
 	 * @param x x-position on screen
 	 * @param y y-position on screen
 	 * @param scale Scale ratio of the object
+	 * @param size Size of the longer dimension of the screen
+	 * @param xscl Factor (equal to 1 or 0) of x
+	 * @param yscl Factor (equal to 1 or 0) of y
 	 */
-	public void draw(Graphics g, int x, int y, double scale){
+	public void draw(Graphics g, int x, int y, double scale, double size, int xscl, int yscl){
 		if(this.isValid()){
-			//If this object is of type fence, undo padding
-			if(this instanceof Fence){x-=5;y-=5;}
-			imgh.draw(g,x,y,scale);
+			imgh.draw(g,x,y,scale,size,xscl,yscl, 12);
 		}
 	}
 	
 	/**Draws Tile based on information stored in Tile
 	 * @param g Graphics object (given in JFrame)
 	 * @param scale Scale ratio of the object*/
-	public void draw(Graphics g, double scale){this.draw(g,(int)old_x,(int)old_y, scale);}
+	public void draw(Graphics g, double scale, double size, int xscl, int yscl){this.draw(g,(int)old_x,(int)old_y, scale,size,xscl,yscl);}
 	
 	/**
 	 * Sets the coordinates of this tile on the screen based on its position on the grid
 	 */
 	public void setCoords(){
-		this.new_x=this.x*74+5;
-		this.new_y=this.y*74+5;
+		this.new_x=this.x*74;
+		this.new_y=this.y*74;
 		
 		double ly = this.new_y-this.old_y;
 		double lx = this.new_x-this.old_x;

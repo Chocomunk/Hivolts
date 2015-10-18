@@ -135,13 +135,16 @@ public class TileMap {
 	 * Draws all objects on the map
 	 * @param g Graphics object (given in JFrame)
 	 * @param scale Scale ratio of the object
+	 * @param size Size of the longer dimension of the screen
+	 * @param xscl Factor (equal to 1 or 0) of x
+	 * @param yscl Factor (equal to 1 or 0) of y
 	 */
-	public void draw(Graphics g, double scale){
-		for(Fence f: fences){f.draw(g,scale);}
+	public void draw(Graphics g, double scale, double size, int xscl, int yscl){
+		for(Fence f: fences){f.draw(g,scale,size,xscl,yscl);}
 		for(int i=0; i<mhos.length; i++){
-			if(mhos[i].isValid()){mhos[i].draw(g,scale);}
+			if(mhos[i].isValid()){mhos[i].draw(g,scale,size,xscl,yscl);}
 		}
-		player.draw(g,scale);
+		player.draw(g,scale,size,xscl,yscl);
 	}
 	
 	/**

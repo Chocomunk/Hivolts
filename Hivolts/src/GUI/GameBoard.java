@@ -37,7 +37,8 @@ public class GameBoard extends JComponent{
 	
 	
 	//Scale of the game
-	private double scale;
+	private double scale,size;
+	private int xscale,yscale;
 	
     /**
      * Initializes component and variables
@@ -94,25 +95,29 @@ public class GameBoard extends JComponent{
      */
     public void paint(Graphics g) {
     	
-    	scale = (this.getWidth()<this.getHeight()?this.getWidth():this.getHeight());
-    	scale/=888;
-    	
-    	this.imgh.draw(g, 0, 0, 1);
+    	scale = this.getWidth()<this.getHeight()?this.getWidth():this.getHeight();
+    	scale /= 888;
+    	size = this.getWidth()>this.getHeight()?this.getWidth():this.getHeight();
+    	xscale = size==this.getWidth()?1:0;
+    	yscale = size==this.getHeight()?1:0;
     	
     	//Only draw game objects if we are playing
     	if(this.currState==gameState.PLAYING){
+        	this.imgh.draw(g, 0, 0);
+        	
         	for(int x=0; x<12; x++){
         		for(int y=0; y<12; y++){
 //        			g.setColor(Color.DARK_GRAY);
 //        			g.fillRect(x*74, y*74, 74, 74);
         			
         			g.setColor(Color.BLACK);
-        			g.drawRect((int)(x*74*scale), (int)(y*74*scale), (int)(74*scale), (int)(74*scale));
+        			g.drawRect((int)((x*74*scale)+xscale*((size/2)-(444*scale))), (int)((y*74*scale)+yscale*((size/2)-(444*scale))), (int)(74*scale), (int)(74*scale));
         		}
         	}
-        	map.draw(g,scale);
+        	map.draw(g,scale,size,xscale,yscale);
     	}else{
-    		playAgainButt.draw(g,scale);
+    		this.imgh.drawExact(g, 0, 0, (int)(this.imgh.getImage().getWidth()*(this.getWidth()/888.0)), (int)(this.imgh.getImage().getHeight()*(this.getHeight()/888.0)));
+    		playAgainButt.draw(g,scale,size,xscale,yscale);
     	}
     }
 

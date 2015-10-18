@@ -19,6 +19,7 @@ public class Button{
 	
 	//Position variables
 	private int posx,posy,width,height;
+	private double px,py,w,h;
 	
 	//Button state variables
 	private boolean hovering;
@@ -57,7 +58,7 @@ public class Button{
 	 * @return Whether mouse is over this button
 	 */
 	public boolean isOver(int x, int y, double scale){
-		if(valid && (x>posx*scale&&x<posx*scale+width*scale)&&(y>posy*scale&&y<posy*scale+height*scale)){
+		if(valid && (x>(px)*scale&&x<(px+w)*scale)&&(y>(py)*scale&&y<(py+h)*scale)){
 			return true;
 		}else{
 			return false;
@@ -69,7 +70,7 @@ public class Button{
 	 * @param y mouse pos-y
 	 * @return Whether mouse is over this button
 	 */
-	public boolean isOver(int x, int y){return this.isOver(x, y, 1);}
+//	public boolean isOver(int x, int y){return this.isOver(x, y, 1);}
 	
 	/**
 	 * Sets the state of this button to hover
@@ -107,8 +108,20 @@ public class Button{
 	 * Draws the button using images
 	 * @param g Graphics (given in JFrame)
 	 * @param scale Scale ratio of the object
+	 * @param size Size of the longer dimension of the screen
+	 * @param xscl Factor (equal to 1 or 0) of x
+	 * @param yscl Factor (equal to 1 or 0) of y
 	 */
-	public void draw(Graphics g, double scale){imgh.draw(g, posx, posy, scale);}
+	public void draw(Graphics g, double scale, double size, int xscl, int yscl){
+		double widths = xscl==yscl?888:(scale*888*yscl)+(size*xscl);
+		double heights = xscl==yscl?888:(scale*888*xscl)+(size*yscl);
+		w = this.imgh.getImage().getWidth()*scale;
+		h = this.imgh.getImage().getHeight()*scale;
+		px = (widths/2)-(w/2);
+		py = heights*(posy/888.0);
+		
+		imgh.drawExact(g, (int)px, (int)py, (int)w, (int)h);
+	}
 	
 	/**
 	 * Called every tick, compares position of button and mouse
@@ -119,15 +132,15 @@ public class Button{
 		posx*=scale;
 		posy*=scale;
 		if(valid){
-			if(!this.isHovering()&&this.isOver(posx, posy)){
+			if(!this.isHovering()&&this.isOver(posx, posy, scale)){
 				this.setHover();
-			}else if(!this.isOver(posx, posy)&&this.isHovering()){
+			}else if(!this.isOver(posx, posy, scale)&&this.isHovering()){
 				this.setNone();
-			}else if(!this.isHolding()&&this.isOver(posx, posy)&&mic.isMouseDown()){
+			}else if(!this.isHolding()&&this.isOver(posx, posy, scale)&&mic.isMouseDown()){
 				this.setHold();
-			}else if(!mic.isMouseDown()&&this.isHolding()&&!this.isOver(posx, posy)){
+			}else if(!mic.isMouseDown()&&this.isHolding()&&!this.isOver(posx, posy, scale)){
 				this.setRelease();
-			}else if(!mic.isMouseDown()&&this.isHolding()&&this.isOver(posx, posy)){
+			}else if(!mic.isMouseDown()&&this.isHolding()&&this.isOver(posx, posy, scale)){
 				mic.advanceGame();
 				reset();
 			}
