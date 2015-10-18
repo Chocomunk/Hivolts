@@ -2,7 +2,9 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.MouseInfo;
+import java.awt.RenderingHints;
 
 import javax.swing.JComponent;
 
@@ -95,27 +97,36 @@ public class GameBoard extends JComponent{
      */
     public void paint(Graphics g) {
     	
+    	//Calcualates screen ratio values
     	scale = this.getWidth()<this.getHeight()?this.getWidth():this.getHeight();
     	scale /= 888;
     	size = this.getWidth()>this.getHeight()?this.getWidth():this.getHeight();
     	xscale = size==this.getWidth()?1:0;
     	yscale = size==this.getHeight()?1:0;
     	
+    	//Code to smooth pictures on scaling, idea from: http://stackoverflow.com/questions/25368499/how-can-i-draw-smooth-buffered-images-in-java
+    	Graphics2D g2d = (Graphics2D) g;
+    	g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    	g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+    	
     	//Only draw game objects if we are playing
     	if(this.currState==gameState.PLAYING){
+    		//Draws the background
         	this.imgh.draw(g, 0, 0);
-        	
-        	for(int x=0; x<12; x++){
-        		for(int y=0; y<12; y++){
-//        			g.setColor(Color.DARK_GRAY);
-//        			g.fillRect(x*74, y*74, 74, 74);
-        			
-        			g.setColor(Color.BLACK);
-        			g.drawRect((int)((x*74*scale)+xscale*((size/2)-(444*scale))), (int)((y*74*scale)+yscale*((size/2)-(444*scale))), (int)(74*scale), (int)(74*scale));
-        		}
+
+        	//Draws the grid
+        	g.setColor(Color.BLACK);
+        	for(int i=0; i<=12; i++){
+        		int xpos = (int)((i*74*scale)+xscale*((size/2)-(444*scale)));
+        		int ypos = (int)((i*74*scale)+yscale*((size/2)-(444*scale)));
+        		int sizeShift = (int)((size/2)-444*scale);
+        		g.drawLine(xpos, sizeShift*yscale, xpos, (int)(scale*888)+sizeShift*yscale);
+        		g.drawLine(sizeShift*xscale, ypos, (int)(scale*888)+sizeShift*xscale, ypos);
         	}
+        	
         	map.draw(g,scale,size,xscale,yscale);
     	}else{
+    		//Draws endgame screen
     		this.imgh.drawExact(g, 0, 0, (int)(this.imgh.getImage().getWidth()*(this.getWidth()/888.0)), (int)(this.imgh.getImage().getHeight()*(this.getHeight()/888.0)));
     		playAgainButt.draw(g,scale,size,xscale,yscale);
     	}
