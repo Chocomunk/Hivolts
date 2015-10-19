@@ -5,6 +5,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.RenderingHints;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.swing.JComponent;
 
@@ -24,6 +27,9 @@ import Tile.TileMap;
  */
 @SuppressWarnings("serial")
 public class GameBoard extends JComponent{
+	
+	//Used for test cases
+	PrintWriter pw;
 	
 	//Declares game aspects, and UI handlers
 	private KeyboardInputController kbic;
@@ -70,6 +76,16 @@ public class GameBoard extends JComponent{
      * Resets the game to a initial state
      */
     void reset(){
+    	try {
+			pw = new PrintWriter("Hivolts-Test-Case.txt", "UTF-8");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
 		playAgainButt.setInvalid();
 		
 		imgh.updateImage(ImageType.BG);
@@ -182,6 +198,7 @@ public class GameBoard extends JComponent{
 		this.imgh.updateImage(ImageType.LOSE);
 		playAgainButt.setValid();
 		System.out.println("LOST GAME: Player position before death is ("+this.player.getX()+","+this.player.getY()+")");
+		pw.println("LOST GAME: Player position before death is ("+this.player.getX()+","+this.player.getY()+")");
 	}
 	/**
 	 * Sets the gamestate to Win
@@ -191,6 +208,7 @@ public class GameBoard extends JComponent{
 		this.imgh.updateImage(ImageType.WIN);
 		playAgainButt.setValid();
 		System.out.println("WON GAME");
+		pw.println("WON GAME");
 	}
 	
 	//Accessors
@@ -202,4 +220,6 @@ public class GameBoard extends JComponent{
 	public TileMap getMap() {return map;}
 	/**@return The scale of the program*/
 	public double getScale() {return scale;}
+	/**@return The PrintWriter of this program*/
+	public PrintWriter getPW(){return this.pw;}
 }
