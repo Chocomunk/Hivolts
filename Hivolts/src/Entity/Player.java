@@ -107,6 +107,7 @@ public class Player extends Entity{
 			
 			//Checks the direction, then moves in that direction
 			if(this.direction != KeyboardInputController.movement.NULL){
+				System.out.println("Key: "+this.direction);
 				if(this.direction !=KeyboardInputController.movement.JUMP){
 					switch(this.direction){
 					case UP:
@@ -148,6 +149,7 @@ public class Player extends Entity{
 				}else{
 					jump();
 				}
+				this.getMap().printGameState();
 			}
 		
 		}

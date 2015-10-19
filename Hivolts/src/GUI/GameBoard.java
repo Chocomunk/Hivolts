@@ -181,6 +181,7 @@ public class GameBoard extends JComponent{
 		this.currState=gameState.LOSE;
 		this.imgh.updateImage(ImageType.LOSE);
 		playAgainButt.setValid();
+		System.out.println("LOST GAME: Player position before death is ("+this.player.getX()+","+this.player.getY()+")");
 	}
 	/**
 	 * Sets the gamestate to Win
@@ -189,6 +190,7 @@ public class GameBoard extends JComponent{
 		this.currState=gameState.WIN;
 		this.imgh.updateImage(ImageType.WIN);
 		playAgainButt.setValid();
+		System.out.println("WON GAME");
 	}
 	
 	//Accessors

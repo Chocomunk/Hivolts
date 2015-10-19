@@ -172,6 +172,35 @@ public class TileMap {
 		player.tick();
 	}
 	
+	/**
+	 * Outputs the gamestate into the console
+	 */
+	public void printGameState(){
+		String[] output = new String[13];
+		output[0] = "Gamestate: ";
+		for(int y=0; y<12; y++){
+			output[y+1] = "\t"+"   ";
+			for(int x=0; x<12; x++){
+				Tile t = grid[x][y];
+				if(t != null && t.isValid()){
+					if(t instanceof Fence){
+						output[y+1] += "F ";
+					}else if(t instanceof Mho){
+						output[y+1] += "M ";
+					}
+				}else if(x == player.getX() && y == player.getY()){
+					output[y+1] += "P ";
+				}else{
+					output[y+1] += "_ ";
+				}
+			}
+		}
+		
+		for(String s: output){
+			System.out.println(s);
+		}
+	}
+	
 	//Setters
 	/**Sets the Tile at a position on the grid
 	 * @param x x-position
