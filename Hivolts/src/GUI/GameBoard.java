@@ -5,12 +5,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.RenderingHints;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 
 import javax.swing.JComponent;
 
+import Core.Hivolts;
 import Entity.Player;
 import Input.Button;
 import Input.KeyboardInputController;
@@ -28,20 +26,19 @@ import Tile.TileMap;
 @SuppressWarnings("serial")
 public class GameBoard extends JComponent{
 	
-	//Used for test cases
-	PrintWriter pw;
-	
 	//Declares game aspects, and UI handlers
 	private KeyboardInputController kbic;
 	private MouseInputController mic;
 	private ImageHandler imgh;
 	private Player player;
 	private TileMap map;
+	private Button tryAgainButt;
+	private Button continueButt;
 	private Button playAgainButt;
 	
 	//Controls the state of the game
 	public enum gameState {WIN, LOSE, PLAYING};
-	private gameState currState = gameState.PLAYING;
+	public gameState currState = gameState.PLAYING;
 	
 	
 	//Scale of the game
@@ -66,7 +63,11 @@ public class GameBoard extends JComponent{
     	this.mic = new MouseInputController(this);
     	this.addMouseListener(mic);
 
-		playAgainButt = new Button(333,600); 
+		tryAgainButt = new Button(333,600,ImageType.MHO,ImageType.PLAYER,ImageType.FENCE);
+		continueButt = new Button(333,600,ImageType.FENCE,ImageType.MHO,ImageType.PLAYER);
+		playAgainButt = new Button(333,600,ImageType.PLAYER,ImageType.FENCE,ImageType.MHO);
+		tryAgainButt.setMIC(mic);
+		continueButt.setMIC(mic);
 		playAgainButt.setMIC(mic);
 		
 		reset();
@@ -76,16 +77,12 @@ public class GameBoard extends JComponent{
      * Resets the game to a initial state
      */
     void reset(){
-    	try {
-			pw = new PrintWriter("Hivolts-Test-Case.txt", "UTF-8");
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	if(Hivolts.level==3){
+    		Hivolts.reset();
+    	}
     	
+		tryAgainButt.setInvalid();
+		continueButt.setInvalid();
 		playAgainButt.setInvalid();
 		
 		imgh.updateImage(ImageType.BG);
@@ -141,23 +138,24 @@ public class GameBoard extends JComponent{
         	}
         	
         	map.draw(g,scale,size,xscale,yscale);
+        	
+        	g.setColor(Color.BLUE);
+        	g.drawString("Level: "+Hivolts.level, 25, 35);
     	}else{
     		//Draws endgame screen
     		this.imgh.drawExact(g, 0, 0, (int)(this.imgh.getImage().getWidth()*(this.getWidth()/888.0)), (int)(this.imgh.getImage().getHeight()*(this.getHeight()/888.0)));
-    		playAgainButt.draw(g,scale,size,xscale,yscale);
+
+    		if(this.currState == gameState.LOSE){
+        		tryAgainButt.draw(g,scale,size,xscale,yscale);
+    		}else if(this.currState == gameState.WIN){
+    			if(Hivolts.level<3){
+    	    		continueButt.draw(g,scale,size,xscale,yscale);
+    			}else{
+    	    		playAgainButt.draw(g,scale,size,xscale,yscale);
+    			}
+    		}
     	}
     }
-
-	/**
-	 * Called when mouse is clicked on screen
-	 * @param x x-position of mouse
-	 * @param y y-position of mouse
-	 */
-	public void clicked(int x, int y){
-		if(playAgainButt.isOver(x, y,scale)){
-			newGame();
-		}
-	}
 	
     /**
      * Called every tick
@@ -166,6 +164,12 @@ public class GameBoard extends JComponent{
     	if(currState == gameState.PLAYING){
     		map.tick();
     	}else{
+    		tryAgainButt.tick(MouseInfo.getPointerInfo().getLocation().x-this.getLocationOnScreen().x, 
+    				MouseInfo.getPointerInfo().getLocation().y-this.getLocationOnScreen().y,
+    				scale);
+    		continueButt.tick(MouseInfo.getPointerInfo().getLocation().x-this.getLocationOnScreen().x, 
+    				MouseInfo.getPointerInfo().getLocation().y-this.getLocationOnScreen().y,
+    				scale);
     		playAgainButt.tick(MouseInfo.getPointerInfo().getLocation().x-this.getLocationOnScreen().x, 
     				MouseInfo.getPointerInfo().getLocation().y-this.getLocationOnScreen().y,
     				scale);
@@ -194,21 +198,25 @@ public class GameBoard extends JComponent{
      * Sets the gamestate to Lose
      * */
 	public void Lose(){
+		Hivolts.reset();
 		this.currState=gameState.LOSE;
 		this.imgh.updateImage(ImageType.LOSE);
-		playAgainButt.setValid();
-		System.out.println("LOST GAME: Player position before death is ("+this.player.getX()+","+this.player.getY()+")");
-		pw.println("LOST GAME: Player position before death is ("+this.player.getX()+","+this.player.getY()+")");
+		tryAgainButt.setValid();
 	}
 	/**
 	 * Sets the gamestate to Win
 	 * */
 	public void Win(){
+		Hivolts.passLevel();
 		this.currState=gameState.WIN;
-		this.imgh.updateImage(ImageType.WIN);
-		playAgainButt.setValid();
-		System.out.println("WON GAME");
-		pw.println("WON GAME");
+		
+		if(Hivolts.level<3){
+			continueButt.setValid();
+			this.imgh.updateImage(ImageType.WIN);
+		}else{
+			playAgainButt.setValid();
+			this.imgh.updateImage(ImageType.MHO);
+		}
 	}
 	
 	//Accessors
@@ -220,6 +228,4 @@ public class GameBoard extends JComponent{
 	public TileMap getMap() {return map;}
 	/**@return The scale of the program*/
 	public double getScale() {return scale;}
-	/**@return The PrintWriter of this program*/
-	public PrintWriter getPW(){return this.pw;}
 }

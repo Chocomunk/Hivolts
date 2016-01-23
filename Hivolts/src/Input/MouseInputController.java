@@ -27,7 +27,7 @@ public class MouseInputController implements MouseListener{
 	
 	//Mouse Input iplemented methods
 	/**Called when the mouse is clicked on the JFrame*/
-	public void mouseClicked(MouseEvent arg0) {board.clicked(arg0.getX(), arg0.getY());}
+	public void mouseClicked(MouseEvent arg0) {}
 	/**Called when the mouse is held down on the JFrame*/
 	public void mousePressed(MouseEvent arg0) {mouseDown = true;}
 	/**Called when the mouse is released on the JFrame*/

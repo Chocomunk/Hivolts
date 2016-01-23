@@ -26,17 +26,30 @@ public class Button{
 	private boolean holding;
 	private boolean valid;
 	
+	//Images variables
+	private ImageType normal;
+	private ImageType hover;
+	private ImageType hold;
+	
 	/**
 	 * Creates a button at position (x,y)
 	 * @param x x-position
 	 * @param y y-position
+	 * @param button default button image
+	 * @param hover hover button image
+	 * @param hold hold button image
 	 */
-	public Button(int x, int y){
+	public Button(int x, int y, ImageType button, ImageType hover, ImageType hold){
 		this.posx = x;
 		this.posy = y;
-		imgh = new ImageHandler(ImageType.PBUTT);
+		imgh = new ImageHandler(button);
 		width = imgh.getImage().getWidth();
 		height = imgh.getImage().getHeight();
+		
+		this.normal = button;
+		this.hover = hover;
+		this.hold = hold;
+		
 		reset();
 	}
 	
@@ -76,7 +89,7 @@ public class Button{
 	 * Sets the state of this button to hover
 	 */
 	public void setHover(){
-		imgh.updateImage(ImageType.PBUTT_HV);
+		imgh.updateImage(hover);
 		this.hovering = true;
 	}
 	
@@ -84,7 +97,7 @@ public class Button{
 	 * Sets this button to an empty state
 	 */
 	public void setNone(){
-		imgh.updateImage(ImageType.PBUTT);
+		imgh.updateImage(normal);
 		this.hovering = false;
 	}
 	
@@ -92,7 +105,7 @@ public class Button{
 	 * Sets the state of this button to hold
 	 */
 	public void setHold(){
-		imgh.updateImage(ImageType.PBUTT_HD);
+		imgh.updateImage(hold);
 		this.holding = true;
 	}
 	
@@ -100,7 +113,7 @@ public class Button{
 	 * Undo the hopld state
 	 */
 	public void setRelease(){
-		imgh.updateImage(ImageType.PBUTT);
+		imgh.updateImage(normal);
 		this.holding = false;
 	}
 	
@@ -159,6 +172,6 @@ public class Button{
 	//Getters
 	/**@return Whether the mouse is hovering over this button*/
 	public boolean isHovering(){return this.hovering;}
-	/**@return Whether the mosue if being held on this button*/
+	/**@return Whether the mouse if being held on this button*/
 	public boolean isHolding(){return this.holding;}
 }

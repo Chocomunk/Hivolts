@@ -16,18 +16,31 @@ public class Hivolts {
 	static KeyboardInputController kbic = new KeyboardInputController();
 	static GameWindow gw = new GameWindow(kbic);
 	
+	public static int level;
+	
+	/* TO BE IMPLEMENTED LATER
+	 * from a scale of 0-5 tests how many "challenges" to add in
+	 */
+	static int difficulty;
+	
 	/**
 	 * Called on running the program, executes the game code.
 	 * @param args
 	 */
 	@SuppressWarnings("static-access")
 	public static void main(String[] args){
+		reset();
+		
 		//Creates a new Updater thread from the Updater class, then starts it.
 		Thread updater = new Thread(new Updater());
 		updater.start();
 		
         gw.setDefaultCloseOperation(gw.EXIT_ON_CLOSE);
         gw.setVisible(true);
+	}
+	
+	public static void reset(){
+		level = 1;
 	}
 	
 	/**
@@ -37,4 +50,7 @@ public class Hivolts {
 		gw.Update();
 		gw.repaint();
 	}
+	
+	/**Moves to the next level*/
+	public static void passLevel(){level++;}
 }

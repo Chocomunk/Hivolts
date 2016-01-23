@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import Entity.Mho;
 import Entity.Player;
 import GUI.GameBoard;
+import GUI.GameBoard.gameState;
 
 /**
  * Virtual representation of game grid
@@ -156,7 +157,7 @@ public class TileMap {
 		for(Mho m: mhos){if(m.isValid()){mhos_exist=true;}}
 		
 		//If win state achieved then set the gamestate to a Win
-		if(!mhos_exist){this.board.Win(); this.board.repaint();}
+		if(!mhos_exist && (this.board.currState == gameState.PLAYING)){System.out.println("winning");this.board.Win(); this.board.repaint();}
 		//Otherwise, tick all tiles on the grid
 		else{
 			for(Tile[] i: grid){
@@ -170,36 +171,6 @@ public class TileMap {
 		
 		//Tick the player
 		player.tick();
-	}
-	
-	/**
-	 * Outputs the gamestate into the console
-	 */
-	public void printGameState(){
-		String[] output = new String[13];
-		output[0] = "Gamestate: ";
-		for(int y=0; y<12; y++){
-			output[y+1] = "\t"+"   ";
-			for(int x=0; x<12; x++){
-				Tile t = grid[x][y];
-				if(t != null && t.isValid()){
-					if(t instanceof Fence){
-						output[y+1] += "F ";
-					}else if(t instanceof Mho){
-						output[y+1] += "M ";
-					}
-				}else if(x == player.getX() && y == player.getY()){
-					output[y+1] += "P ";
-				}else{
-					output[y+1] += "_ ";
-				}
-			}
-		}
-		
-		for(String s: output){
-			System.out.println(s);
-			this.getBoard().getPW().println(s);
-		}
 	}
 	
 	//Setters
