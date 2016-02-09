@@ -63,9 +63,9 @@ public class GameBoard extends JComponent{
     	this.mic = new MouseInputController(this);
     	this.addMouseListener(mic);
 
-		tryAgainButt = new Button(333,600,ImageType.MHO,ImageType.PLAYER,ImageType.FENCE);
-		continueButt = new Button(333,600,ImageType.FENCE,ImageType.MHO,ImageType.PLAYER);
-		playAgainButt = new Button(333,600,ImageType.PLAYER,ImageType.FENCE,ImageType.MHO);
+		tryAgainButt = new Button(333,600,ImageType.TABUTT,ImageType.TABUTT_HV,ImageType.TABUTT_HD);
+		continueButt = new Button(333,600,ImageType.CBUTT,ImageType.CBUTT_HV,ImageType.CBUTT_HD);
+		playAgainButt = new Button(333,600,ImageType.PABUTT,ImageType.PABUTT_HV,ImageType.PABUTT_HD);
 		tryAgainButt.setMIC(mic);
 		continueButt.setMIC(mic);
 		playAgainButt.setMIC(mic);
@@ -77,7 +77,7 @@ public class GameBoard extends JComponent{
      * Resets the game to a initial state
      */
     void reset(){
-    	if(Hivolts.level==3){
+    	if(Hivolts.level==4){
     		Hivolts.reset();
     	}
     	
@@ -148,7 +148,7 @@ public class GameBoard extends JComponent{
     		if(this.currState == gameState.LOSE){
         		tryAgainButt.draw(g,scale,size,xscale,yscale);
     		}else if(this.currState == gameState.WIN){
-    			if(Hivolts.level<3){
+    			if(Hivolts.level<4){
     	    		continueButt.draw(g,scale,size,xscale,yscale);
     			}else{
     	    		playAgainButt.draw(g,scale,size,xscale,yscale);
@@ -210,12 +210,12 @@ public class GameBoard extends JComponent{
 		Hivolts.passLevel();
 		this.currState=gameState.WIN;
 		
-		if(Hivolts.level<3){
+		if(Hivolts.level<4){
 			continueButt.setValid();
-			this.imgh.updateImage(ImageType.WIN);
+			this.imgh.updateImage(ImageType.CONTINUE);
 		}else{
 			playAgainButt.setValid();
-			this.imgh.updateImage(ImageType.MHO);
+			this.imgh.updateImage(ImageType.WIN);
 		}
 	}
 	

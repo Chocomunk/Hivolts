@@ -8,15 +8,27 @@ package GUI;
  */
 public enum ImageType {
 	//All visible object types + string locations
-	MHO("res/mho.png"),
-	PLAYER("res/player.png"),
-	FENCE("res/fence.png"),
-	BG("res/background.png"),
-	WIN("res/win.png"),
-	LOSE("res/lose.png"),
-	PBUTT("res/play_again.png"),
-	PBUTT_HV("res/play_again_hv.png"),
-	PBUTT_HD("res/play_again_hd.png"),
+	MHO("res/tiles/mho.png"),
+	PLAYER("res/tiles/player.png"),
+	FENCE("res/tiles/fence.png"),
+	
+	BG("res/BGs/background.png"),
+	WIN("res/BGs/win.png"),
+	CONTINUE("res/BGs/continue.png"),
+	LOSE("res/BGs/lose.png"),
+	
+	PABUTT("res/buttons/playAgain/play_again.png"),
+	PABUTT_HV("res/buttons/playAgain/play_again_hv.png"),
+	PABUTT_HD("res/buttons/playAgain/play_again_hd.png"),
+	
+	TABUTT("res/buttons/tryAgain/try_again.png"),
+	TABUTT_HV("res/buttons/tryAgain/try_again_hv.png"),
+	TABUTT_HD("res/buttons/tryAgain/try_again_hd.png"),
+	
+	CBUTT("res/buttons/continue/continue.png"),
+	CBUTT_HV("res/buttons/continue/continue_hv.png"),
+	CBUTT_HD("res/buttons/continue/continue_hd.png"),
+	
 	NULL("");
 	
 	//Location of image file for this type
