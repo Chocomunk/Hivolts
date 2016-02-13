@@ -156,7 +156,7 @@ public class TileMap {
 		for(Mho m: mhos){if(m.isValid()){mhos_exist=true;}}
 		
 		//If win state achieved then set the gamestate to a Win
-		if(!mhos_exist && (this.board.currState == gameState.PLAYING)){System.out.println("winning");this.board.Win(); this.board.repaint();}
+		if(!mhos_exist && (this.board.currState == gameState.PLAYING)){this.board.Win(); this.board.repaint();}
 		//Otherwise, tick all tiles on the grid
 		else{
 			for(Tile[] i: grid){
