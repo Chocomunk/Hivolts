@@ -9,6 +9,7 @@ import GUI.GameBoard;
  * Manages Mouse Input in the entire game
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see MouseListener
  */
 public class MouseInputController implements MouseListener{

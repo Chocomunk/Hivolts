@@ -10,6 +10,7 @@ import Input.KeyboardInputController;
  * Holds and manages all graphical objects/settings
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see JFrame
  */
 @SuppressWarnings("serial")

@@ -4,6 +4,7 @@ package Core;
  * Updater class, updates other classes every 16ms, or at 60fps
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see Runnable
  */
 public class Updater implements Runnable{

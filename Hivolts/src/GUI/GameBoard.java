@@ -20,6 +20,7 @@ import Tile.TileMap;
  * Holds and manages all gameobjects
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see JComponent
  */
 @SuppressWarnings("serial")

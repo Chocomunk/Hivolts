@@ -4,6 +4,7 @@ package GUI;
  * Determines the type of image of an object
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  */
 public enum ImageType {
 	//All visible object types + string locations

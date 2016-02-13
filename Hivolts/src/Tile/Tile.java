@@ -10,6 +10,7 @@ import GUI.ImageHandler;
  * Represents any Tile object on the grid in Hivolts
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  */
 public class Tile {
 

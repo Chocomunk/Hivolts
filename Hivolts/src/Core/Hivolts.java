@@ -8,6 +8,7 @@ import Input.KeyboardInputController;
  * Core class of the program, executes Hivolts
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  */
 public class Hivolts {
 

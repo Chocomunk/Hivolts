@@ -8,6 +8,7 @@ import Tile.Tile;
  * Represents a Player gameobject in Hivolts
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see Entity
  */
 public class Player extends Entity{

@@ -10,6 +10,7 @@ import GUI.GameBoard.gameState;
  * Virtual representation of game grid
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  */
 public class TileMap {
 	

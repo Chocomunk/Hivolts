@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
  * Manages keypresses in the entire game
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see KeyAdapter
  */
 public class KeyboardInputController extends KeyAdapter{

@@ -4,6 +4,7 @@ package Tile;
  * Represents a fence object in Hivolts
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see Tile
  */
 public class Fence extends Tile{

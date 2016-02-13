@@ -7,6 +7,7 @@ import Tile.Tile;
  * Represents any movable tile/gameobject on the grid
  * @author Alvin On
  * @author Frederic Maa
+ * @author Bert Davies
  * @see Tile
  */
 public abstract class Entity extends Tile{
