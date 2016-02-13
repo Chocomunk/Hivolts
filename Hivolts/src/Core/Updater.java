@@ -3,7 +3,6 @@ package Core;
 /**
  * Updater class, updates other classes every 16ms, or at 60fps
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  * @see Runnable
  */

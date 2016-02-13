@@ -6,7 +6,6 @@ import Tile.Tile;
 /**
  * Represents any movable tile/gameobject on the grid
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  * @see Tile
  */

@@ -8,7 +8,6 @@ import GUI.GameBoard;
 /**
  * Manages Mouse Input in the entire game
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  * @see MouseListener
  */

@@ -19,7 +19,6 @@ import Tile.TileMap;
 /**
  * Holds and manages all gameobjects
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  * @see JComponent
  */

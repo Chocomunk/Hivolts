@@ -15,7 +15,6 @@ import Tile.Tile;
 /**
  * Handles images of one object
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  */
 public class ImageHandler {

@@ -6,7 +6,6 @@ import java.awt.event.KeyEvent;
 /**
  * Manages keypresses in the entire game
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  * @see KeyAdapter
  */

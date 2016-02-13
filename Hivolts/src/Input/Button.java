@@ -8,7 +8,6 @@ import GUI.ImageType;
 /**
  * Represents a Button on the screen
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  */
 public class Button{

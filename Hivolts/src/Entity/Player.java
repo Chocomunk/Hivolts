@@ -7,7 +7,6 @@ import Tile.Tile;
 /**
  * Represents a Player gameobject in Hivolts
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  * @see Entity
  */

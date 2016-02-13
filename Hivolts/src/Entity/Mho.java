@@ -5,7 +5,6 @@ import Tile.Fence;
 /**
  * Represents an Mho gameobject in Hivolts
  * @author Alvin On
- * @author Edan Sneh
  * @author Frederic Maa
  * @see Entity
  */
